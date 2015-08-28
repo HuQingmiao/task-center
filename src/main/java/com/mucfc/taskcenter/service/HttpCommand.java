@@ -40,7 +40,8 @@ public class HttpCommand extends AbsCommnad {
 
     /**
      * 发送post请求
-     * @throws Exception 
+     *
+     * @throws Exception
      */
     private static void post(String strUrl) throws Exception {
         PrintWriter out = null;
