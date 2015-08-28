@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation=
+               "http://www.springframework.org/schema/beans
+ 			      http://www.springframework.org/schema/beans/spring-beans-4.1.xsd
+    				http://www.springframework.org/schema/context 
+    				http://www.springframework.org/schema/context/spring-context-4.1.xsd
+						http://www.springframework.org/schema/tx 
+						http://www.springframework.org/schema/tx/spring-tx.xsd
+						http://www.springframework.org/schema/aop 
+						http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <!-- 加载BEAN后调用, 为防止加载Bean逻辑因代码显示加载Spring.xml时被重复调用，特将此行放在本quartz.xml文件中 -->
+    <bean id="refBeanPostProcessor" class="com.mucfc.taskcenter.common.support.RefBeanPostProcessor"/>
+
+    <bean id="eventCaller" class="com.mucfc.taskcenter.control.EventCaller"/>
+
+    <bean id="scheduleCaller" class="com.mucfc.taskcenter.control.ScheduleCaller"/>
+
+    <bean id="scheduleCallJob" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject" ref="scheduleCaller"/>
+        <property name="targetMethod" value="doJob"/>
+        <property name="concurrent" value="false"/>
+    </bean>
+
+    <bean id="scheduleCallTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail" ref="scheduleCallJob"/>
+
+        <!--秒 分 时 日 月 星期 年 -->
+        <property name="cronExpression" value="5/10 * * * * ?"/>
+    </bean>
+
+
+    <!-- 配置调度线程池
+    <bean id="executor" class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
+        <property name="corePoolSize" value="5"/>
+        <property name="maxPoolSize" value="10"/>
+        <property name="queueCapacity" value="30"/>
+    </bean>
+    -->
+
+    <bean id="startScheduler" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+        <property name="triggers">
+            <list>
+                <ref bean="scheduleCallTrigger"/>
+            </list>
+        </property>
+        <!--
+        <property name="taskExecutor" ref="executor"/>
+        -->
+    </bean>
+
+</beans>
