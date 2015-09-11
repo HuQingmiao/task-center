@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.Map;
@@ -32,13 +34,13 @@ public class PortalController extends BasicController {
     private AppRegService service;
 
 
-    @RequestMapping(value="/prepare", method = RequestMethod.GET)
+    @RequestMapping(value = "/prepare", method = RequestMethod.GET)
     public String prepare(@ModelAttribute("form") LoginForm form, Map<String, Object> map) {
         try {
             log.info(">>> portal prepare()");
 
-           //LoginForm loginForm = new LoginForm();
-           //map.put("form", form);
+            //LoginForm loginForm = new LoginForm();
+            //map.put("form", form);
 
             return "login";
 
@@ -50,8 +52,8 @@ public class PortalController extends BasicController {
     }
 
 
-    @RequestMapping(value="/login",method = RequestMethod.POST)
-    public String login(@ModelAttribute("form") LoginForm form, Map<String, Object> map, HttpServletRequest request) {
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    public String login(@ModelAttribute("form") LoginForm form, Map<String, Object> map, HttpServletRequest request, HttpServletResponse response) {
         try {
             log.info(">>> login()");
 
@@ -61,10 +63,19 @@ public class PortalController extends BasicController {
             log.info("username: " + username);
             log.info("password: " + password);
 
+            log.info(">>>cookies: ");
+            Cookie[] cookies = request.getCookies();
+            for (int i = 0; i < cookies.length; i++) {
+                System.out.println(cookies[i].getName() + ": " + cookies[i].getValue());
+            }
+            //Cookie c = new Cookie("kkkk","pig");
+            //c.setMaxAge(120000000);
+            //response.addCookie(c);
+
             boolean pass = true;
             if (pass) {
                 HttpSession session = request.getSession();
-                session.setAttribute("username",username);
+                session.setAttribute("username", username);
             } else {
                 map.put("error", "您输入的用户名/密码不正确!");
                 return "login";
@@ -75,7 +86,7 @@ public class PortalController extends BasicController {
 
             //分页查询, 1. 构造分页控制器
             PagerControl pager = new PagerControl(request, 10, 5);
-            log.info(">>>>>>>>>>>>>>>>>> "+pager.getOffset());
+            log.info(">>>>>>>>>>>>>>>>>> " + pager.getOffset());
 
             //分页查询, 2.调用分页查询方法
             List<AppReg> appRegList = service.findAppConfigs(null, null, null,
