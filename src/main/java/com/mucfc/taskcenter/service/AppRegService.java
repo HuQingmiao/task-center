@@ -62,7 +62,7 @@ public class AppRegService extends BasicService {
     }
 
 
-    public List<AppReg> findAppConfigs(String appCode, String appName, String hostName, int pageNum, int rowcntPerPage) throws Exception {
+    public List<AppReg> findAppConfigs(String appCode, String appName, String hostName, int offset, int rowCnt) throws Exception {
         HashMap<String, Object> paramMap = new HashMap<String, Object>();
         if (appCode != null) {
             paramMap.put("appCode", "%" + appCode + "%");
@@ -76,7 +76,7 @@ public class AppRegService extends BasicService {
 
         //log.info(">>>>>>>pageNum: "+pageNum);
         //log.info(">>>>>>>rowcntPerPage: "+rowcntPerPage);
-        PageBounds pageBounds = new PageBounds(pageNum, rowcntPerPage);
+        PageBounds pageBounds = new PageBounds(offset, rowCnt);
         return appRegDao.find(paramMap, pageBounds);
     }
 

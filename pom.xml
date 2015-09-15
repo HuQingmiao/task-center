@@ -46,9 +46,9 @@
         </dependency>
 
         <dependency><!-- mybatis分页插件 -->
-            <groupId>walker</groupId>
+            <groupId>com.github.walker</groupId>
             <artifactId>mybatis-paginator</artifactId>
-            <version>1.0</version>
+            <version>20150827</version>
         </dependency>
 
 
@@ -182,7 +182,9 @@
     <build>
         <finalName>task-center</finalName>
 
+        <!--
         <outputDirectory>src/main/webapp/WEB-INF/classes</outputDirectory>
+        -->
 
         <!--
         <resources>
