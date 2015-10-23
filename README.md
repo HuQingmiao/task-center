@@ -4,11 +4,11 @@
 
 
 ## task-center-1.0.0
-task-center，一个基于srpingmvc + mybatis + mysql + mq + hessian技术的分布式作业调度平台。用于集中调度公司的各个软件系统或者或某个业务范围内的各软件模块，支持时间片调度、MQ事件调度、Hessian远程调度、人工即时调度；并提供基本的监控功能。
+* task-center，一个基于srpingmvc + mybatis + mysql + mq + hessian 技术的分布式作业调度平台。 用于集中调度公司的各个软件系统或者或某个业务范围内的各软件模块，支持时间片调度、MQ事件调度、Hessian远程调度、人工即时调度；并提供基本的监控功能。
+* 其实开源作业调度平台已经很好多了，本项目供学习的用途胜过实战，建议不要fork。
 
 
-
-
+## 项目开发说明
 * 运行环境
      * Windows or Linux
      * Java 7+
