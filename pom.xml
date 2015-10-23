@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.mucfc</groupId>
     <artifactId>task-center</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0.0</version>
 
     <packaging>war</packaging>
 
@@ -45,12 +45,13 @@
             <version>1.3.2</version>
         </dependency>
 
-        <dependency><!-- mybatis分页插件 -->
+        <dependency><!-- mybatis分页控件 -->
             <groupId>com.github.walker</groupId>
             <artifactId>mybatis-paginator</artifactId>
-            <version>20150827</version>
+            <version>1.2.0</version>
+            <scope>system</scope>
+            <systemPath>D:/intellj-projects/task-center/lib/mybatis-paginator-1.2.0.jar</systemPath>
         </dependency>
-
 
         <dependency>
             <groupId>javax.servlet</groupId>
@@ -180,9 +181,9 @@
     </dependencies>
 
     <build>
-        <finalName>task-center</finalName>
 
         <!--
+         <finalName>task-center</finalName>
         <outputDirectory>src/main/webapp/WEB-INF/classes</outputDirectory>
         -->
 
