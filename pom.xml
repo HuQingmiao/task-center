@@ -220,7 +220,7 @@
                                 <copy todir="target/webapp" overwrite="true">
                                     <fileset dir="src/main/webapp" includes="**/*"/>
                                 </copy>
-                                
+
                             </target>
                         </configuration>
                     </execution>
