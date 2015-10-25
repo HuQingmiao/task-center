@@ -185,7 +185,8 @@
         <!--
          <finalName>task-center</finalName>
         -->
-        <outputDirectory>target/webapp/WEB-INF/classes</outputDirectory>
+         <outputDirectory>src/main/webapp/WEB-INF/classes</outputDirectory>
+
 
         <!--
         <resources>
@@ -198,7 +199,6 @@
             </resource>
         </resources>
         -->
-
         <plugins>
 
             <plugin>
@@ -217,10 +217,11 @@
                                 <copy file="src/main/java/a.xml" includes="**/*.xml"
                                       tofile="target/classes/a.xml" overwrite="true"/>
                                 -->
-                                <copy todir="target/webapp" overwrite="true">
-                                    <fileset dir="src/main/webapp" includes="**/*"/>
+                                <!--
+                                <copy todir="src/main/webapp/WEB-INF/classes" overwrite="true">
+                                    <fileset dir="src/main/resources" includes="**/*"/>
                                 </copy>
-
+                                -->
                             </target>
                         </configuration>
                     </execution>
