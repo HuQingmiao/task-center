@@ -63,7 +63,7 @@
 
         <dependency>
             <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java </artifactId>
+            <artifactId>mysql-connector-java</artifactId>
             <version>5.1.30</version>
         </dependency>
 
@@ -184,7 +184,7 @@
 
         <!--
          <finalName>task-center</finalName>
-        <outputDirectory>src/main/webapp/WEB-INF/classes</outputDirectory>
+         <outputDirectory>src/main/webapp/WEB-INF/classes</outputDirectory>
         -->
 
         <!--
