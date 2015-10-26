@@ -185,7 +185,7 @@
         <!--
          <finalName>task-center</finalName>
         -->
-         <outputDirectory>src/main/webapp/WEB-INF/classes</outputDirectory>
+         <outputDirectory>target/webapp/WEB-INF/classes</outputDirectory>
 
 
         <!--
