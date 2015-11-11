@@ -17,7 +17,6 @@
 
         <project.dirc>d:/intellj-projects</project.dirc>
 
-        <maven.compiler.encoding>UTF-8</maven.compiler.encoding>
         <spring.version>4.1.4.RELEASE</spring.version>
     </properties>
 
