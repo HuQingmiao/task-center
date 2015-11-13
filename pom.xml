@@ -15,7 +15,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.encoding>UTF-8</maven.compiler.encoding>
 
-        <project.dirc>d:/intellj-projects</project.dirc>
+        <project.dirc>d:/intellj-projects/task-center</project.dirc>
 
         <spring.version>4.1.4.RELEASE</spring.version>
     </properties>
@@ -49,7 +49,7 @@
             <artifactId>mybatis-paginator</artifactId>
             <version>1.2.0</version>
             <scope>system</scope>
-            <systemPath>${project.dirc}/urpp/lib/mybatis-paginator-1.2.0.jar</systemPath>
+            <systemPath>${project.dirc}/lib/mybatis-paginator-1.2.0.jar</systemPath>
         </dependency>
 
         <dependency>
