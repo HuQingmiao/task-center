@@ -19,7 +19,7 @@ public class PagerControl {
 
     private int maxLinkcnt = DEFAULT_MAX_LINKCNT; //导航栏的页码链接数
 
-    private int offset = 1; //rownum
+    private int offset = 0;
 
 
     /**
@@ -157,7 +157,7 @@ public class PagerControl {
         }
 
         request.setAttribute("CURR_PAGENUM", currPageNum);
-        this.offset = (Integer.parseInt(currPageNum) - 1) * this.getMaxRowcnt() + 1;
+        this.offset = (Integer.parseInt(currPageNum) - 1) * this.getMaxRowcnt();
 
         //把当前页码存一个副本到session
         HttpSession session = request.getSession();
