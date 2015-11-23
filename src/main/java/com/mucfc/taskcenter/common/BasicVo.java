@@ -1,5 +1,6 @@
 package com.mucfc.taskcenter.common;
 
+import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -7,6 +8,8 @@ import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 /**
  * PO 基类
@@ -27,6 +30,9 @@ public abstract class BasicVo implements Serializable {
         Field[] fields = this.getClass().getDeclaredFields();
 
         for (int i = 0; i < fields.length; i++) {
+            if ("serialVersionUID".equals(fields[i].getName())) {
+                continue;
+            }
             fieldNameTypeMap.put(fields[i].getName(), fields[i].getType());
         }
     }
@@ -97,5 +103,70 @@ public abstract class BasicVo implements Serializable {
 
     public HashMap<String, Class<?>> fieldNameTypeMap() {
         return this.fieldNameTypeMap;
+    }
+
+
+    @Override
+    public int hashCode() {
+        int hashCode = 1;
+        Map<String, Object> keyObjectMap = new HashMap<String, Object>();
+        try {
+            for (Iterator<String> it = fieldNameTypeMap.keySet().iterator(); it.hasNext(); ) {
+                String filedName = it.next();
+                Object obj = this.get(filedName);
+                hashCode = 31 * hashCode + (obj == null ? 0 : obj.hashCode());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        keyObjectMap.clear();
+        return hashCode;
+    }
+
+    @Override
+    public String toString() {
+        Map<String, Object> keyObjectMap = new HashMap<String, Object>();
+        try {
+            for (Iterator<String> it = fieldNameTypeMap.keySet().iterator(); it.hasNext(); ) {
+                String filedName = it.next();
+                keyObjectMap.put(filedName, this.get(filedName));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        String str = JSONObject.valueToString(keyObjectMap);
+        keyObjectMap.clear();
+        return str;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this) {
+            return true;
+        }
+        if (!(o instanceof BasicVo)) {
+            return false;
+        }
+
+        BasicVo vo2= ((BasicVo) o);
+        HashMap<String, Class<?>> ftMap2 =vo2.fieldNameTypeMap();
+        if (fieldNameTypeMap.size() != ftMap2.size()) {
+            return false;
+        }
+
+        try {
+            for (Iterator<String> it = fieldNameTypeMap.keySet().iterator(); it.hasNext(); ) {
+                String filedName = it.next();
+                Object obj1 = this.get(filedName);
+                Object obj2 = vo2.get(filedName);
+                if (!(obj1 == null ? obj2 == null : obj1.equals(obj2))) {
+                    return false;
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return true;
     }
 }
