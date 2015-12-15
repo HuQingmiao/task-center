@@ -249,7 +249,7 @@
                         <!-- PAGE CONTENT BEGINS -->
                         <div class="row">
                             <div class="col-xs-12">
-                                <table id="simple-table" class="table table-striped table-bordered table-hover">
+                                <table id="simple-table" class="table table-striped table-bordered table-hover" >
                                     <thead>
                                     <tr>
                                         <!--
@@ -293,7 +293,7 @@
                                             <td>${app.type}</td>
                                             <td>${app.hostName}</td>
                                             <td>${app.command}</td>
-                                            <td style="text-align: center;">
+                                            <td style="text-align: center; white-space: nowrap">
                                                 <c:if test="${app.scheduleEnable==1}">
                                                     <span style="color: #0eb839">已启用</span>
                                                 </c:if>
@@ -309,7 +309,7 @@
                                                        title="设置调度时间"></i>
                                                 </button>
                                             </td>
-                                            <td style="text-align: center;">
+                                            <td style="text-align: center; white-space: nowrap">
                                                 <c:if test="${app.eventEnable==1}">
                                                     <span style="color: #0eb839">已启用</span>
                                                 </c:if>
@@ -325,14 +325,14 @@
                                                        title="设置调度事件"></i>
                                                 </button>
                                             </td>
-                                            <td style="text-align: center">
+                                            <td style="text-align: center; white-space: nowrap">
                                                 <a href="${base}/appmgr/log/${app.id}" target="_blank">
                                                     调度日志
                                                 </a>
                                             </td>
 
 
-                                            <td style="text-align: center">
+                                            <td style="text-align: center; white-space: nowrap">
                                                 <button id="callNow" onclick="callNow(${app.id})"
                                                         class="btn btn-xs btn-warning">
                                                     <i class="ace-icon fa fa-flag icon-only bigger-120"
@@ -340,7 +340,7 @@
                                                     <span title="立即调用">EXE</span>
                                                 </button>
 
-                                                &nbsp; &nbsp;
+                                                &nbsp;
                                                 <button id="toUpdate" onclick="toUpdate(${app.id})"
                                                         class="btn btn-xs btn-info">
                                                     <i class="ace-icon fa fa-pencil bigger-120"
@@ -354,7 +354,7 @@
                                                        title="设置调度时间"></i>
                                                 -->
 
-                                                &nbsp; &nbsp;
+                                                &nbsp;
                                                 <button id="delete" onclick="delApp(${app.id})"
                                                         class="btn btn-xs btn-danger">
                                                     <i class="ace-icon fa fa-trash-o bigger-120"
