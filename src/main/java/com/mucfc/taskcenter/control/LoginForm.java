@@ -1,4 +1,4 @@
-package com.mucfc.taskcenter.form;
+package com.mucfc.taskcenter.control;
 
 import com.mucfc.taskcenter.common.BasicForm;
 

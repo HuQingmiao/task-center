@@ -3,8 +3,6 @@ package com.mucfc.taskcenter.control;
 import com.github.walker.mybatis.paginator.PageList;
 import com.mucfc.taskcenter.common.BasicController;
 import com.mucfc.taskcenter.common.support.PagerControl;
-import com.mucfc.taskcenter.form.AppRegForm;
-import com.mucfc.taskcenter.form.LoginForm;
 import com.mucfc.taskcenter.vo.AppReg;
 import com.mucfc.taskcenter.service.AppRegService;
 

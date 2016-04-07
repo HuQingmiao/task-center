@@ -5,7 +5,6 @@ import com.github.walker.mybatis.paginator.PageList;
 import com.mucfc.taskcenter.common.*;
 import com.mucfc.taskcenter.common.support.PagerControl;
 import com.mucfc.taskcenter.common.utils.PropertyUtil;
-import com.mucfc.taskcenter.form.AppRegForm;
 import com.mucfc.taskcenter.service.AppCallService;
 import com.mucfc.taskcenter.service.AppRegService;
 import com.mucfc.taskcenter.service.EventCtrService;
