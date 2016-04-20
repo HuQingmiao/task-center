@@ -132,7 +132,7 @@
         <dependency><!-- mybatis分页控件 -->
             <groupId>com.github.walker</groupId>
             <artifactId>mybatis-paginator</artifactId>
-            <version>1.2.0</version>
+            <version>1.2.1</version>
             <scope>system</scope>
             <systemPath>${project.dirc}/lib/mybatis-paginator-1.2.1.jar</systemPath>
         </dependency>
