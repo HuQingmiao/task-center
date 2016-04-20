@@ -59,8 +59,8 @@
         <property name="password" value="${password}" />
 
         <!-- 配置初始化大小、最小、最大 -->
-        <property name="initialSize" value="2" />
-        <property name="minIdle" value="2" />
+        <property name="initialSize" value="${initialSize}" />
+        <property name="minIdle" value="${minIdle}" />
         <property name="maxActive" value="${maxActive}" />
 
         <!-- 配置获取连接等待超时的时间 -->
