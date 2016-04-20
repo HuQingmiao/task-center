@@ -20,11 +20,9 @@ public class DateTimeUtil {
 
     private static Logger log = LoggerFactory.getLogger(DateTimeUtil.class);
 
-    public static final String DATE_FORMAT = "yyyy-MM-dd";
+    public static final String PRETTY_DT_FORMAT = "yyyy-MM-dd HH:mm:ss.SSS";
 
-    public static final String TIME_FORMAT = "HH:mm:ss.SSS";
-
-    public static final String DATE_TIME_FORMAT = "yyyy-MM-dd HH:mm:ss.SSS";
+    public static final String COMPACT_DT_FORMAT = "yyyyMMddHHmmssSSS";
 
     /**
      * 将给定的日期时间字符串按照指定的格式进行解析。
@@ -91,23 +89,49 @@ public class DateTimeUtil {
         return new Date(calendar.getTime().getTime());
     }
 
-    public static java.sql.Date toSqlDate(java.util.Date date) {
+
+    /**
+     * 将java.util.date类型的日期转为java.sql.date, 以适应实体类的日期类型
+     *
+     * @param date java.util.Date
+     * @return java.sql.Date
+     */
+    public static java.sql.Date toSqlDate(Date date) {
         return new java.sql.Date(date.getTime());
     }
 
-    public static java.sql.Time toSqlTime(java.util.Date date) {
+    /**
+     * 将java.util.date类型的时间转为java.sql.Time, 以适应实体类的时间类型
+     *
+     * @param date java.util.date
+     * @return java.sql.date
+     */
+    public static java.sql.Time toSqlTime(Date date) {
         return new java.sql.Time(date.getTime());
     }
 
-    public static java.sql.Timestamp toSqlTimestamp(java.util.Date date) {
+    /**
+     * 将java.util.date类型的日期时间转为java.sql.Timestamp, 以适应实体类的日期时间类型
+     *
+     * @param date java.util.date
+     * @return java.sql.date
+     */
+    public static java.sql.Timestamp toSqlTimestamp(Date date) {
         return new java.sql.Timestamp(date.getTime());
     }
 
+    /**
+     * 取java.sql.Timestamp类型的当前时间
+     *
+     * @return java.sql.Timestamp类型的当前时间
+     */
     public static java.sql.Timestamp currentTime() {
         return new java.sql.Timestamp(new Date().getTime());
     }
 
+
     public static void main(String[] args) {
 
+        System.out.println(getOneDay(new Date(), 1).toString());
     }
 }

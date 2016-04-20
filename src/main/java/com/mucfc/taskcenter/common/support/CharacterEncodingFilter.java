@@ -48,10 +48,8 @@ public class CharacterEncodingFilter implements Filter {
     }
 
     public void destroy() {
-
         this.encoding = null;
         this.filterConfig = null;
-
     }
 
 }

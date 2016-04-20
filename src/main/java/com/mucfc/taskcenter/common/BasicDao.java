@@ -13,19 +13,19 @@ import java.util.Map;
  */
 public interface BasicDao {
 
-    public void save(BasicVo basicPo);
+    public int save(BasicVo basicVo);
 
     public void saveBatch(List list);
 
 
-    public int update(BasicVo basicPo);
+    public int update(BasicVo basicVo);
 
-    public int updateIgnoreNull(BasicVo basicPo);
+    public int updateIgnoreNull(BasicVo basicVo);
 
     public void updateBatch(List list);
 
 
-    public int delete(BasicVo basicPo);
+    public int delete(BasicVo basicVo);
 
     public void deleteBatch(List list);
 
@@ -37,8 +37,6 @@ public interface BasicDao {
     public long count();
 
     public BasicVo findByPK(Long id);
-
-    //public BasicVo findByUK(Map<String, Object> paramMap);
 
     public List find(Map<String, Object> paramMap, PageBounds pageBounds);
 }

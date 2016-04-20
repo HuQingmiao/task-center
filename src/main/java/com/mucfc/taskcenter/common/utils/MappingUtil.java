@@ -9,7 +9,7 @@ package com.mucfc.taskcenter.common.utils;
 public class MappingUtil {
 
     /**
-     * 根据驼峰规则将表名转为PO类名
+     * 根据驼峰规则将表名转为VO类名
      *
      * @param tableName
      * @return
@@ -42,7 +42,7 @@ public class MappingUtil {
     }
 
     /**
-     * 根据驼峰规则将列名转为PO类的属性名
+     * 根据驼峰规则将列名转为VO类的属性名
      *
      * @param columnName
      * @return
@@ -72,7 +72,7 @@ public class MappingUtil {
     }
 
     /**
-     * 根据驼峰规则获取PO类指定的表名
+     * 根据驼峰规则获取VO类指定的表名
      *
      * @param entityClassName
      * @return
@@ -99,7 +99,7 @@ public class MappingUtil {
 
 
     /**
-     * 根据驼峰规则获取指定PO属性名所对应的列名
+     * 根据驼峰规则获取指定VO属性名所对应的列名
      *
      * @param fieldName
      * @return

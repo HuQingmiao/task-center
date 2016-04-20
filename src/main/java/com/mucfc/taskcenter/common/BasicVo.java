@@ -1,6 +1,7 @@
 package com.mucfc.taskcenter.common;
 
-import org.json.JSONObject;
+import com.alibaba.fastjson.JSONObject;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -134,7 +135,7 @@ public abstract class BasicVo implements Serializable {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        String str = JSONObject.valueToString(keyObjectMap);
+        String str = JSONObject.toJSONString(keyObjectMap);
         keyObjectMap.clear();
         return str;
     }

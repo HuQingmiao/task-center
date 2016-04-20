@@ -1,11 +1,11 @@
 package com.mucfc.taskcenter.common.utils;
 
+
 import com.mucfc.taskcenter.common.BasicForm;
 import com.mucfc.taskcenter.common.BasicVo;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
-import java.sql.Timestamp;
 import java.util.Date;
 import java.util.HashMap;
 
@@ -112,7 +112,7 @@ public class PropertyUtil {
                         if (v.equals("")) {
                             vo.set(formFieldName, null);
                         } else {
-                            String format = DateTimeUtil.DATE_TIME_FORMAT.substring(0, v.length());
+                            String format = DateTimeUtil.PRETTY_DT_FORMAT.substring(0, v.length());
                             Date timestamp = DateTimeUtil.parse(v, format);
                             vo.set(formFieldName, timestamp);
                         }
@@ -120,7 +120,7 @@ public class PropertyUtil {
                         if (v.equals("")) {
                             vo.set(formFieldName, null);
                         } else {
-                            String format = DateTimeUtil.DATE_TIME_FORMAT.substring(0, v.length());
+                            String format = DateTimeUtil.PRETTY_DT_FORMAT.substring(0, v.length());
                             Date timestamp = DateTimeUtil.parse(v, format);
                             vo.set(formFieldName, timestamp);
                         }
@@ -210,7 +210,7 @@ public class PropertyUtil {
                         settingMethod.invoke(form, new Object[]{v});
 
                     } else if (eValue instanceof Date) {
-                        String vs = DateTimeUtil.format((Date) eValue, DateTimeUtil.DATE_TIME_FORMAT);
+                        String vs = DateTimeUtil.format((Date) eValue, DateTimeUtil.PRETTY_DT_FORMAT);
                         settingMethod.invoke(form, new Object[]{vs});
                     }
                 }
