@@ -36,6 +36,8 @@
     <!-- 扫描并加载control层的类 -->
     <context:component-scan base-package="com.mucfc.taskcenter.control"/>
 
+    <!--<context:annotation-config />-->
+
     <mvc:annotation-driven/>
 
 </beans>
