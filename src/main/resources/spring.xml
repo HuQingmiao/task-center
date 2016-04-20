@@ -111,6 +111,9 @@
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="dataSource" ref="dataSource"/>
 
+        <!-- 为其下的包定义别名 -->
+        <property name="typeAliasesPackage" value="com.mucfc.taskcenter.vo"/>
+
         <!-- 载入mybatis配置 -->
         <property name="configLocation" value="classpath:mybatis.xml"/>
         <property name="mapperLocations" value="classpath*:com/mucfc/taskcenter/dao/*.xml"/>

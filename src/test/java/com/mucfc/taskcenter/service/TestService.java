@@ -1,5 +1,6 @@
 package com.mucfc.taskcenter.service;
 
+import com.mucfc.taskcenter.dao.SysCodesDao;
 import com.mucfc.taskcenter.vo.AppReg;
 import com.mucfc.taskcenter.service.AppRegService;
 import com.mucfc.taskcenter.control.ScheduleCaller;
@@ -8,7 +9,6 @@ import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.transaction.TransactionConfiguration;
@@ -20,18 +20,23 @@ import java.util.List;
 /**
  * @author HuQingmiao
  */
-//@RunWith(SpringJUnit4ClassRunner.class)
-//@ContextConfiguration(locations = {"classpath:spring.xml", "classpath:quartz.xml"})
-//@TransactionConfiguration(defaultRollback = false)
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = {"classpath:spring.xml"})
+@TransactionConfiguration(defaultRollback = false)
 public class TestService {
 
     private Logger log = LoggerFactory.getLogger(this.getClass());
 
-    @Autowired
-    AppRegService appConfigService;
+//    @Autowired
+//    AppRegService appConfigService;
+//
+//    @Autowired
+//    ScheduleCaller scheduleCaller;
+
 
     @Autowired
-    ScheduleCaller scheduleCaller;
+    SysCodesDao sysCodesDao;
+
 
 //    @Test
 //    public void testCURD() {
@@ -65,5 +70,11 @@ public class TestService {
 //        }
 //    }
 
+    @Test
+    public void aa() {
+
+        System.out.println(">>");
+        System.out.println(">>"+sysCodesDao.count());
+    }
 
 }

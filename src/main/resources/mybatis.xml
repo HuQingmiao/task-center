@@ -25,12 +25,6 @@
         <setting name="lazyLoadTriggerMethods" value="equals,clone,hashCode,toString"/>
     </settings>
 
-
-    <typeAliases>
-        <package name="com.mucfc.taskcenter.vo"/>
-        <!-- 为此包下的所有类自动定义别名-->
-    </typeAliases>
-
     <plugins>
         <!-- 分页查询拦截器 -->
         <plugin interceptor="com.github.walker.mybatis.paginator.OffsetLimitInterceptor">
