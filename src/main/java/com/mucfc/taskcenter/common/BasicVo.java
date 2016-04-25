@@ -149,8 +149,8 @@ public abstract class BasicVo implements Serializable {
             return false;
         }
 
-        BasicVo vo2= ((BasicVo) o);
-        HashMap<String, Class<?>> ftMap2 =vo2.fieldNameTypeMap();
+        BasicVo vo2 = ((BasicVo) o);
+        HashMap<String, Class<?>> ftMap2 = vo2.fieldNameTypeMap();
         if (fieldNameTypeMap.size() != ftMap2.size()) {
             return false;
         }
