@@ -1,6 +1,5 @@
 package com.mucfc.taskcenter.common.utils;
 
-
 import com.mucfc.taskcenter.common.BasicForm;
 import com.mucfc.taskcenter.common.BasicVo;
 
@@ -29,26 +28,22 @@ public class PropertyUtil {
             throws Exception {
         try {
             //po的属性及类型
-            HashMap poFieldsMap = vo.fieldNameTypeMap();
+            HashMap<String, Class<?>> voFieldsMap = vo.fieldNameTypeMap();
 
             Field[] formFields = form.getClass().getDeclaredFields();
 
             StringBuffer methodName = new StringBuffer();
-            Method gettingMethod = null;//form中的取值方法
+            Method gettingMethod = null;    //form中的取值方法
             for (int i = 0; i < formFields.length; i++) {
-                String formFieldName = formFields[i].getName(); //form中的属性名
+                String formFieldName = formFields[i].getName();
+                String formFieldType = formFields[i].getType().getName();
 
-                //如果po没有此同名属性
-                if (!poFieldsMap.containsKey(formFieldName)) {
+                // vo没有此同名属性
+                if (!voFieldsMap.containsKey(formFieldName)) {
                     continue;
                 }
 
-                // form中的属性类型
-                String formFieldType = formFields[i].getType().getName();
-
-                // 取po的属性类型
-                Class cls = (Class) poFieldsMap.get(formFieldName);
-                String poFieldType = cls.getName();
+                String voFieldType = voFieldsMap.get(formFieldName).getName();
 
                 methodName.append("get");
                 if (formFieldName.length() > 1 && Character.isUpperCase(formFieldName.charAt(1))) {
@@ -58,7 +53,7 @@ public class PropertyUtil {
                     methodName.append(formFieldName.substring(1));
                 }
 
-                //获取form中的取值方法
+                //form的取值方法
                 gettingMethod = form.getClass().getMethod(
                         methodName.toString(), new Class[]{});
                 methodName.delete(0, methodName.length());
@@ -66,49 +61,51 @@ public class PropertyUtil {
                 //取form的属性值
                 Object fValue = gettingMethod.invoke(form, new Object[]{});
 
-                //如果属性类型相同
-                if (formFieldType.equals(poFieldType)) {
-                    vo.set(formFieldName, fValue); //给po设值
-                    //settingMethod.invoke(vo, new Object[] { value });
+                if (fValue == null) {
+                    vo.set(formFieldName, null);
                     continue;
                 }
 
-                if (fValue == null) {
-                    vo.set(formFieldName, null);
+                //如果属性类型相同
+                if (formFieldType.equals(voFieldType)) {
+                    if ("java.lang.String".equals(formFieldType)) {
+                        fValue = ((String) fValue).trim();
+                    }
+                    vo.set(formFieldName, fValue);
                     continue;
                 }
 
                 if (fValue instanceof String) {
                     String v = ((String) fValue).trim();
 
-                    if ("java.lang.String".equals(poFieldType)) {
+                    if ("java.lang.String".equals(voFieldType)) {
                         vo.set(formFieldName, v);
 
-                    } else if ("java.lang.Long".equals(poFieldType)) {
+                    } else if ("java.lang.Long".equals(voFieldType)) {
                         if (v.equals("")) {
                             vo.set(formFieldName, null);
                         } else {
                             vo.set(formFieldName, new Long(v));
                         }
-                    } else if ("java.lang.Integer".equals(poFieldType)) {
+                    } else if ("java.lang.Integer".equals(voFieldType)) {
                         if (v.equals("")) {
                             vo.set(formFieldName, null);
                         } else {
                             vo.set(formFieldName, new Integer(v));
                         }
-                    } else if ("java.lang.Double".equals(poFieldType)) {
+                    } else if ("java.lang.Double".equals(voFieldType)) {
                         if (v.equals("")) {
                             vo.set(formFieldName, null);
                         } else {
                             vo.set(formFieldName, new Double(v));
                         }
-                    } else if ("java.lang.Float".equals(poFieldType)) {
+                    } else if ("java.lang.Float".equals(voFieldType)) {
                         if (v.equals("")) {
                             vo.set(formFieldName, null);
                         } else {
                             vo.set(formFieldName, new Float(v));
                         }
-                    } else if ("java.util.Date".equals(poFieldType)) {
+                    } else if ("java.util.Date".equals(voFieldType)) {
                         if (v.equals("")) {
                             vo.set(formFieldName, null);
                         } else {
@@ -116,7 +113,7 @@ public class PropertyUtil {
                             Date timestamp = DateTimeUtil.parse(v, format);
                             vo.set(formFieldName, timestamp);
                         }
-                    } else if ("java.sql.Timestamp".equals(poFieldType)) {
+                    } else if ("java.sql.Timestamp".equals(voFieldType)) {
                         if (v.equals("")) {
                             vo.set(formFieldName, null);
                         } else {
@@ -153,31 +150,30 @@ public class PropertyUtil {
                 formFieldsMap.put(fields[i].getName(), fields[i].getType());
             }
 
-            Field[] poFields = vo.getClass().getDeclaredFields();
+            Field[] voFields = vo.getClass().getDeclaredFields();
 
             StringBuffer methodName = new StringBuffer();
             Method settingMethod = null;//form中的设值方法
 
-            for (int i = 0; i < poFields.length; i++) {
-                String poFieldName = poFields[i].getName(); //po中的属性名
+            for (int i = 0; i < voFields.length; i++) {
+                String voFieldName = voFields[i].getName();
+                String voFieldType = voFields[i].getType().getName();
 
-                //如果po没有此同名属性
-                if (!formFieldsMap.containsKey(poFieldName)) {
+                //如果vo没有此同名属性
+                if (!formFieldsMap.containsKey(voFieldName)) {
                     continue;
                 }
-                //po中的属性类型
-                String poFieldType = poFields[i].getType().getName();
 
                 //取form的属性类型
-                Class cls = (Class) formFieldsMap.get(poFieldName);
+                Class cls = (Class) formFieldsMap.get(voFieldName);
                 String formFieldType = cls.getName();
 
                 methodName.append("set");
-                if (poFieldName.length() > 1 && Character.isUpperCase(poFieldName.charAt(1))) {
-                    methodName.append(poFieldName);
+                if (voFieldName.length() > 1 && Character.isUpperCase(voFieldName.charAt(1))) {
+                    methodName.append(voFieldName);
                 } else {
-                    methodName.append(poFieldName.substring(0, 1).toUpperCase());
-                    methodName.append(poFieldName.substring(1));
+                    methodName.append(voFieldName.substring(0, 1).toUpperCase());
+                    methodName.append(voFieldName.substring(1));
                 }
 
                 //获取form中设值方法
@@ -186,26 +182,25 @@ public class PropertyUtil {
                 methodName.delete(0, methodName.length());
 
                 //取po的属性值
-                Object eValue = vo.get(poFieldName);
-
-                //如果属性类型相同
-                if (poFieldType.equals(formFieldType)) {
-                    //给form设值
-                    settingMethod.invoke(form, new Object[]{eValue});
-                    continue;
-                }
+                Object eValue = vo.get(voFieldName);
 
                 if (eValue == null) {
                     settingMethod.invoke(form, new Object[]{null});
                     continue;
                 }
 
+                //如果属性类型相同
+                if (voFieldType.equals(formFieldType)) {
+                    if ("java.lang.String".equals(formFieldType)) {
+                        eValue = ((String) eValue).trim();
+                    }
+                    settingMethod.invoke(form, new Object[]{eValue});
+                    continue;
+                }
+
                 if ("java.lang.String".equals(formFieldType)) {
                     if (eValue instanceof String
-                            || eValue instanceof Long
-                            || eValue instanceof Integer
-                            || eValue instanceof Double
-                            || eValue instanceof Float) {
+                            || eValue instanceof Number) {
                         String v = eValue.toString();
                         settingMethod.invoke(form, new Object[]{v});
 
@@ -223,7 +218,6 @@ public class PropertyUtil {
             e.printStackTrace();
             throw e;
         }
-
     }
 
     public static void main(String[] args) {
