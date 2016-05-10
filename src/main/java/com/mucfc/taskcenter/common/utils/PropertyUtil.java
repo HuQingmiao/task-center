@@ -10,7 +10,7 @@ import java.util.HashMap;
 
 
 /**
- * 提供Form与PO之间的属性拷贝, 支持同名但不同类型的属性的复制。
+ * 提供Form与Vo之间的属性拷贝, 支持同名但不同类型的属性的复制。
  * <p/>
  * 目前，Spring的BeanUtils.copyProperties()以及其它第三方包都只支持同名且同类型的属性值的复制。
  *
