@@ -13,7 +13,7 @@
 
 
     <!-- 所有以/resources路径开头的请求都会由应用程序根目录下的/resources目录提供服务 -->
-    <mvc:resources mapping="/ace/html/**" location="/ace/html/" />
+    <!--<mvc:resources mapping="/ace/html/**" location="/ace/html/" />-->
 
     <mvc:default-servlet-handler/>
 
@@ -34,7 +34,7 @@
     </bean>
 
     <!-- 扫描并加载control层的类 -->
-    <context:component-scan base-package="com.mucfc.taskcenter.control"/>
+    <context:component-scan base-package="com.github.walker.taskcenter.control"/>
 
     <!--<context:annotation-config />-->
 

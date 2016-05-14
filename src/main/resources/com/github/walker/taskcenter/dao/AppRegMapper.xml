@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC  "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.github.walker.taskcenter.dao.AppRegDao">
+
+    <!-- ============================= INSERT ============================= -->
+    <insert id="save">
+        INSERT INTO app_reg( app_name,app_code,host_name,type,command,state,
+                         create_user,create_time )
+        VALUES ( #{appName},#{appCode},#{hostName},#{type},#{command},#{state},
+                 #{createUser},#{createTime})
+    </insert>
+
+    <insert id="saveBatch">
+        INSERT INTO app_reg( id,app_name,app_code,host_name,type,command,state,
+                          create_user,create_time )
+        VALUES 
+        <foreach collection="list" item="item" index="index" separator=",">
+            ( #{item.id},#{item.appName},#{item.appCode},#{item.hostName},#{item.type},#{item.command},#{item.state},
+              #{item.createUser},#{item.createTime} )
+        </foreach>
+    </insert>
+
+
+    <!-- ============================= UPDATE ============================= -->
+    <update id="update">
+        UPDATE app_reg
+        <set>
+            app_name=#{appName},
+            app_code=#{appCode},
+            host_name=#{hostName},
+            type=#{type},
+            command=#{command},
+            state=#{state},
+            create_user=#{createUser},
+            create_time=#{createTime},
+        </set>
+        WHERE id=#{id} 
+    </update>
+
+    <update id="updateIgnoreNull">
+        UPDATE app_reg
+        <set>
+            <if test="appName!= null">app_name=#{appName},</if>
+            <if test="appCode!= null">app_code=#{appCode},</if>
+            <if test="hostName!= null">host_name=#{hostName},</if>
+            <if test="type!= null">type=#{type},</if>
+            <if test="command!= null">command=#{command},</if>
+            <if test="state!= null">state=#{state},</if>
+            <if test="createUser!= null">create_user=#{createUser},</if>
+            <if test="createTime!= null">create_time=#{createTime},</if>
+        </set>
+        WHERE id=#{id} 
+    </update>
+
+    <update id="updateBatch"> parameterType="java.util.List"
+        <foreach collection="list" item="item" index="index"  separator=";">
+            UPDATE app_reg
+            <set>
+                app_name=#{item.appName},
+                app_code=#{item.appCode},
+                host_name=#{item.hostName},
+                type=#{item.type},
+                command=#{item.command},
+                state=#{item.state},
+                create_user=#{item.createUser},
+                create_time=#{item.createTime},
+            </set>
+            WHERE id=#{id} 
+        </foreach>
+    </update>
+
+
+    <!-- ============================= DELETE ============================= -->
+    <delete id="delete">
+        DELETE FROM app_reg
+        WHERE id=#{id} 
+    </delete>
+
+    <delete id="deleteBatch">
+        DELETE FROM app_reg
+        WHERE
+        <foreach collection="list" item="item" index="index" open="(" separator="OR" close=")">
+            (id=#{item.id} )
+        </foreach>
+    </delete>
+
+    <delete id="deleteByPK">
+        DELETE FROM app_reg
+        WHERE id=#{id} 
+    </delete>
+
+    <delete id="deleteAll">
+        DELETE FROM app_reg
+    </delete>
+
+
+    <!-- ============================= SELECT ============================= -->
+    <select id="count" resultType="java.lang.Long">
+        SELECT COUNT(1) FROM app_reg
+    </select>
+
+    <select id="findByPK" resultType="AppReg">
+        SELECT * FROM app_reg
+        WHERE id=#{id} 
+    </select>
+
+    <select id="find" resultType="AppReg">
+        SELECT a.id,a.app_code,a.app_name,a.host_name,a.type,a.command,a.state
+        ,s.enable schedule_enable, s.cron_expression
+        ,e.enable event_enable
+        FROM app_reg a LEFT JOIN schedule_control s ON a.id=s.app_id
+        LEFT JOIN event_control e ON a.id=e.app_id
+        <where>
+            <if test="appName != null and appName!=''">
+                (app_code LIKE #{appName} OR app_name LIKE #{appName})
+            </if>
+            <if test="hostName != null and hostName!=''">
+                AND host_name LIKE #{hostName}
+            </if>
+        </where>
+    </select>
+
+
+    <select id="findByCodeOrByName" resultType="AppReg">
+        SELECT *
+        FROM app_reg
+        WHERE app_code=#{appCode} or app_name=#{appName}
+    </select>
+
+    <select id="findScheduleApps" resultType="AppReg">
+        SELECT  a.id, a.app_code, a.app_name,a.host_name,a.type,a.command,a.state
+        ,s.id schedule_id, s.enable schedule_enable, s.cron_expression, s.next_call_time
+        FROM app_reg a, schedule_control s
+        WHERE a.id = s.app_id
+    </select>
+
+    <select id="findEventApp" resultType="AppReg">
+        SELECT a.id, a.app_code, a.app_name, a.host_name,a.type, a.command,a.state
+        ,e.enable event_enable
+        FROM app_reg a,event_control e
+        WHERE a.id = e.app_id
+        AND a.app_code=#{appCode}
+    </select>
+</mapper>

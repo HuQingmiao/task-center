@@ -15,7 +15,7 @@
 						http://www.springframework.org/schema/aop/spring-aop.xsd">
 
 
-    <bean id="mappings" class="com.mucfc.taskcenter.common.support.PropertyHolder">
+    <bean id="mappings" class="com.github.walker.taskcenter.common.support.PropertyHolder">
         <property name="locations">
             <list>
                  <value>classpath:config.properties</value>
@@ -25,16 +25,16 @@
     </bean>
 
     <!-- 获取Spring Context用于自定义动态注册bean和获取bean -->
-    <bean class="com.mucfc.taskcenter.common.support.ContextHolder"/>
+    <bean class="com.github.walker.taskcenter.common.support.ContextHolder"/>
 
     <!-- 定义在加载某个Bean前后调用的逻辑-->
-    <!--<bean id="refBeanPostProcessor" class="com.mucfc.taskcenter.common.support.RefBeanPostProcessor"/>-->
+    <!--<bean id="refBeanPostProcessor" class="RefBeanPostProcessor"/>-->
 
     <!-- 使得被加载的Bean被代理后，仍然能够通过context.getBean()获取到。 注意，必须导入cglib.jar-->
     <aop:aspectj-autoproxy proxy-target-class="true"/>
 
     <!-- 扫描并加载Service层注解了的@Service,@Component的类, 支持通配符* -->
-    <context:component-scan base-package="com.mucfc.taskcenter.service"/>
+    <context:component-scan base-package="com.github.walker.taskcenter.service"/>
 
 
     <!--<bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">-->
@@ -112,16 +112,16 @@
         <property name="dataSource" ref="dataSource"/>
 
         <!-- 为其下的包定义别名 -->
-        <property name="typeAliasesPackage" value="com.mucfc.taskcenter.vo"/>
+        <property name="typeAliasesPackage" value="com.github.walker.taskcenter.vo"/>
 
         <!-- 载入mybatis配置 -->
         <property name="configLocation" value="classpath:mybatis.xml"/>
-        <property name="mapperLocations" value="classpath*:com/mucfc/taskcenter/dao/*.xml"/>
+        <property name="mapperLocations" value="classpath*:com/github/walker/taskcenter/dao/*.xml"/>
     </bean>
 
     <!-- 扫描并加载 basePackage下的DAO/Mapper接口 -->
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        <property name="basePackage" value="com.mucfc.taskcenter.dao"/>
+        <property name="basePackage" value="com.github.walker.taskcenter.dao"/>
         <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
     </bean>
 

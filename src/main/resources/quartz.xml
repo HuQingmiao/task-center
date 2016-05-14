@@ -15,11 +15,11 @@
 						http://www.springframework.org/schema/aop/spring-aop.xsd">
 
     <!-- 加载BEAN后调用, 为防止加载Bean逻辑因代码显示加载Spring.xml时被重复调用，特将此行放在本quartz.xml文件中 -->
-    <bean id="refBeanPostProcessor" class="com.mucfc.taskcenter.common.support.RefBeanPostProcessor"/>
+    <bean id="refBeanPostProcessor" class="com.github.walker.taskcenter.common.support.RefBeanPostProcessor"/>
 
-    <bean id="eventCaller" class="com.mucfc.taskcenter.control.EventCaller"/>
+    <bean id="eventCaller" class="com.github.walker.taskcenter.control.EventCaller"/>
 
-    <bean id="scheduleCaller" class="com.mucfc.taskcenter.control.ScheduleCaller"/>
+    <bean id="scheduleCaller" class="com.github.walker.taskcenter.control.ScheduleCaller"/>
 
     <bean id="scheduleCallJob" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
         <property name="targetObject" ref="scheduleCaller"/>
@@ -43,15 +43,16 @@
     </bean>
     -->
 
+
     <bean id="startScheduler" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
         <property name="triggers">
             <list>
                 <ref bean="scheduleCallTrigger"/>
             </list>
         </property>
-        <!--
-        <property name="taskExecutor" ref="executor"/>
-        -->
+
+        <!--<property name="taskExecutor" ref="executor"/>-->
+
     </bean>
 
 </beans>

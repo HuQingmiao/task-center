@@ -55,7 +55,7 @@
                             <span class="red"></span>
                             <span class="white" id="id-text2">Task Center</span>
                         </h1>
-                        <h4 class="blue" id="id-company-text">&copy; 招联金融</h4>
+                        <h4 class="blue" id="id-company-text">&copy; 欢迎光临！</h4>
                     </div>
 
                     <!--
@@ -87,7 +87,7 @@
                                     <!-- 如果没有这行代码，modelAttribute="form"将无法识别；但如果在进入本页面前，在controller中
                                          设置modelAttribute，那也可不会造成识别问题-->
                                     <!--
-                                    <jsp:useBean id="form" class="com.mucfc.taskcenter.control.LoginForm" scope="request">
+                                    <jsp:useBean id="form" class="com.github.walker.taskcenter.control.LoginForm" scope="request">
                                     </jsp:useBean>
                                     -->
 

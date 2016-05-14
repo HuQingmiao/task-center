@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC  "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.github.walker.taskcenter.dao.AppCallLogDao">
+
+    <!-- ============================= INSERT ============================= -->
+    <insert id="save">
+        INSERT INTO app_call_log(app_id,app_code,action,time,result,exception )
+        VALUES ( #{appId},#{appCode},#{action},#{time},#{result},#{exception})
+    </insert>
+
+    <insert id="saveBatch">
+        INSERT INTO app_call_log( app_id,app_code,action,time,result,exception )
+        VALUES 
+        <foreach collection="list" item="item" index="index" separator=",">
+            ( #{item.appId},#{item.appCode},#{item.action},#{item.time},#{item.result},#{item.exception} )
+        </foreach>
+    </insert>
+
+
+    <!-- ============================= UPDATE ============================= -->
+    <update id="update">
+        UPDATE app_call_log
+        <set>
+            app_id=#{appId},
+            app_code=#{appCode},
+            action=#{action},
+            time=#{time},
+            result=#{result},
+            exception=#{exception},
+        </set>
+        WHERE id=#{id} 
+    </update>
+
+    <update id="updateIgnoreNull">
+        UPDATE app_call_log
+        <set>
+            <if test="appId!= null">app_id=#{appId},</if>
+            <if test="appCode!= null">app_code=#{appCode},</if>
+            <if test="action!= null">action=#{action},</if>
+            <if test="time!= null">time=#{time},</if>
+            <if test="result!= null">result=#{result},</if>
+            <if test="exception!= null">exception=#{exception},</if>
+        </set>
+        WHERE id=#{id} 
+    </update>
+
+    <update id="updateBatch"> parameterType="java.util.List"
+        <foreach collection="list" item="item" index="index"  separator=";">
+            UPDATE app_call_log
+            <set>
+                app_id=#{item.appId},
+                app_code=#{item.appCode},
+                action=#{item.action},
+                time=#{item.time},
+                result=#{item.result},
+                exception=#{item.exception},
+            </set>
+            WHERE id=#{id} 
+        </foreach>
+    </update>
+
+
+    <!-- ============================= DELETE ============================= -->
+    <delete id="delete">
+        DELETE FROM app_call_log
+        WHERE id=#{id} 
+    </delete>
+
+    <delete id="deleteBatch">
+        DELETE FROM app_call_log
+        WHERE
+        <foreach collection="list" item="item" index="index" open="(" separator="OR" close=")">
+            (id=#{item.id} )
+        </foreach>
+    </delete>
+
+    <delete id="deleteByPK">
+        DELETE FROM app_call_log
+        WHERE id=#{id} 
+    </delete>
+
+    <delete id="deleteAll">
+        DELETE FROM app_call_log
+    </delete>
+
+
+    <!-- ============================= SELECT ============================= -->
+    <select id="count" resultType="java.lang.Long">
+        SELECT COUNT(1) FROM app_call_log
+    </select>
+
+    <select id="findByPK" resultType="AppCallLog">
+        SELECT * FROM app_call_log
+        WHERE id=#{id} 
+    </select>
+
+    <select id="find" resultType="AppCallLog">
+        SELECT id,app_id,app_code,action,time,result,exception
+         FROM app_call_log
+        <where>
+            <if test="appId!= null">
+               AND app_id = #{appId}
+            </if>
+        </where>
+        ORDER BY time DESC
+    </select>
+
+</mapper>
