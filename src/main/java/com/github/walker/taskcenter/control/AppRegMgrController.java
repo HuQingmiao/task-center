@@ -30,7 +30,7 @@ import java.util.Map;
  * Created by HuQingmiao on 2015/5/20.
  */
 @Controller
-@RequestMapping(value = "/appmgr")
+@RequestMapping(value = "appmgr")
 public class AppRegMgrController extends BasicController {
 
     @Autowired
@@ -45,7 +45,7 @@ public class AppRegMgrController extends BasicController {
     @Autowired
     AppCallService appCallService;
 
-    @RequestMapping(value = "/query", method = RequestMethod.GET)
+    @RequestMapping(value = "query", method = RequestMethod.GET)
     public String queryApp(@ModelAttribute("form") AppRegForm form, Map<String, Object> map, HttpServletRequest request) {
         try {
             //HttpSession session = request.getSession();
@@ -76,7 +76,7 @@ public class AppRegMgrController extends BasicController {
         }
     }
 
-    @RequestMapping(value = "/toAdd", method = RequestMethod.GET)
+    @RequestMapping(value = "toAdd", method = RequestMethod.GET)
     public String toAdd(@ModelAttribute("form") AppRegForm form, Map<String, Object> map) {
         try {
             //HttpSession session = request.getSession();
@@ -92,7 +92,7 @@ public class AppRegMgrController extends BasicController {
         }
     }
 
-    @RequestMapping(value = "/addApp", method = RequestMethod.POST)
+    @RequestMapping(value = "addApp", method = RequestMethod.POST)
     public String addApp(@ModelAttribute("form") AppRegForm form, Map<String, Object> map) {
         try {
             log.info(">>> addApp()");
@@ -121,7 +121,7 @@ public class AppRegMgrController extends BasicController {
     }
 
 
-    @RequestMapping(value = "/toUpdate", method = RequestMethod.GET)
+    @RequestMapping(value = "toUpdate", method = RequestMethod.GET)
     public String toUpdate(@ModelAttribute("form") AppRegForm form, Map<String, Object> map) {
         try {
             log.info(">>> toUpdate()");
@@ -142,7 +142,7 @@ public class AppRegMgrController extends BasicController {
         }
     }
 
-    @RequestMapping(value = "/updateApp", method = RequestMethod.POST)
+    @RequestMapping(value = "updateApp", method = RequestMethod.POST)
     public String updateApp(@ModelAttribute("form") AppRegForm form, Map<String, Object> map) {
         try {
             log.info(">>> updateApp()");
@@ -172,7 +172,7 @@ public class AppRegMgrController extends BasicController {
     }
 
 
-    @RequestMapping(value = "/delApp", method = RequestMethod.GET)
+    @RequestMapping(value = "delApp", method = RequestMethod.GET)
     public String delApp(@ModelAttribute("form") AppRegForm form, Map<String, Object> map, HttpServletRequest request) {
         try {
             log.info(">>> delApp()");
@@ -191,7 +191,7 @@ public class AppRegMgrController extends BasicController {
     }
 
 
-    @RequestMapping(value = "/toSetSchedule", method = RequestMethod.GET)
+    @RequestMapping(value = "toSetSchedule", method = RequestMethod.GET)
     public String toSetSchedule(@ModelAttribute("form") AppRegForm form, Map<String, Object> map) {
         try {
             log.info(">>> toSetSchedule()");
@@ -237,7 +237,7 @@ public class AppRegMgrController extends BasicController {
     }
 
 
-    @RequestMapping(value = "/setSchedule", method = RequestMethod.POST)
+    @RequestMapping(value = "setSchedule", method = RequestMethod.POST)
     public String setSchedule(@ModelAttribute("form") AppRegForm form, Map<String, Object> map) {
         try {
             log.info(">>> setSchedule()");
@@ -279,7 +279,7 @@ public class AppRegMgrController extends BasicController {
     }
 
 
-    @RequestMapping(value = "/toSetEvent", method = RequestMethod.GET)
+    @RequestMapping(value = "toSetEvent", method = RequestMethod.GET)
     public String toSetEvent(@ModelAttribute("form") AppRegForm form, Map<String, Object> map) {
         try {
             log.info(">>> toSetEvent()");
@@ -307,7 +307,7 @@ public class AppRegMgrController extends BasicController {
     }
 
 
-    @RequestMapping(value = "/setEvent", method = RequestMethod.POST)
+    @RequestMapping(value = "setEvent", method = RequestMethod.POST)
     public String setEvent(@ModelAttribute("form") AppRegForm form, Map<String, Object> map) {
         try {
             log.info(">>> setEvent()");
@@ -336,7 +336,7 @@ public class AppRegMgrController extends BasicController {
     }
 
 
-    @RequestMapping(value = "/callNow", method = RequestMethod.GET)
+    @RequestMapping(value = "callNow", method = RequestMethod.GET)
     public String callNow(@ModelAttribute("form") AppRegForm form, Map<String, Object> map,HttpServletRequest request) {
         try {
             log.info(">>> toUpdate()");
@@ -358,7 +358,7 @@ public class AppRegMgrController extends BasicController {
         }
     }
 
-    @RequestMapping(value = "/log/{appId}", method = RequestMethod.GET)
+    @RequestMapping(value = "log/{appId}", method = RequestMethod.GET)
     public String queryLog(@PathVariable Long appId, @ModelAttribute("form") BasicForm form, Map<String, Object> map, HttpServletRequest request) {
         try {
             //HttpSession session = request.getSession();

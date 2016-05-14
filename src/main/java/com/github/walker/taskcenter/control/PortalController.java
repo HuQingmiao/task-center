@@ -32,7 +32,7 @@ public class PortalController extends BasicController {
     private AppRegService service;
 
 
-    @RequestMapping(value = "/prepare", method = RequestMethod.GET)
+    @RequestMapping(value = "prepare", method = RequestMethod.GET)
     public String prepare(@ModelAttribute("form") LoginForm form, Map<String, Object> map) {
         try {
             log.info(">>> portal prepare()");
@@ -50,7 +50,7 @@ public class PortalController extends BasicController {
     }
 
 
-    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    @RequestMapping(value = "login", method = RequestMethod.POST)
     public String login(@ModelAttribute("form") LoginForm form, Map<String, Object> map, HttpServletRequest request, HttpServletResponse response) {
         try {
             log.info(">>> login()");
