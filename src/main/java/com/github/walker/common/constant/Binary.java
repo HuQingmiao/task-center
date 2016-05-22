@@ -1,4 +1,4 @@
-package com.github.walker.taskcenter.common.constant;
+package com.github.walker.common.constant;
 
 public enum Binary {
 

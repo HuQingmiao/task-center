@@ -1,4 +1,4 @@
-package com.github.walker.taskcenter.common;
+package com.github.walker.common;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

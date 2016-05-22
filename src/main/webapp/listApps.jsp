@@ -482,8 +482,6 @@
 
 
 <script type="text/javascript">
-
-
     var maxTime = 5;
     for (var i = 1; i <= maxTime; i++) {
         window.setTimeout("display(" + i + ")", i * 1000);

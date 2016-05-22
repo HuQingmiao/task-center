@@ -203,7 +203,7 @@
                             <sf:input path="id" cssStyle="visibility: hidden"/>
                             <sf:input path="criaAppName" cssStyle="visibility: hidden"/>
                             <sf:input path="criaHostName" cssStyle="visibility: hidden"/>
-                            <sf:input path="CURR_PAGENUM"  cssStyle="visibility: hidden"/>
+                            <sf:input path="CURR_PAGENUM" cssStyle="visibility: hidden"/>
 
                             <!-- #section:elements.form -->
                             <div class="form-group">

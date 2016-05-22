@@ -1,6 +1,6 @@
 package com.github.walker.taskcenter.dao;
 
-import com.github.walker.taskcenter.common.BasicDao;
+import com.github.walker.common.BasicDao;
 import com.github.walker.taskcenter.vo.AppReg;
 
 import java.util.List;

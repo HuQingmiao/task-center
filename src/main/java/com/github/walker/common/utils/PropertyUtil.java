@@ -1,8 +1,8 @@
-package com.github.walker.taskcenter.common.utils;
+package com.github.walker.common.utils;
 
 
-import com.github.walker.taskcenter.common.BasicVo;
-import com.github.walker.taskcenter.common.BasicForm;
+import com.github.walker.common.BasicForm;
+import com.github.walker.common.BasicVo;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;

@@ -1,6 +1,6 @@
 package com.github.walker.taskcenter.vo;
 
-import com.github.walker.taskcenter.common.BasicVo;
+import com.github.walker.common.BasicVo;
 
 import java.sql.Timestamp;
 import java.util.Date;

@@ -7,14 +7,13 @@ Created by HuQingmiao on 2008-03-28
 <%@ page session="false" %>
 
 <%
-    Object currPage = request.getAttribute("CURR_PAGENUM");
+    Integer currPage = (Integer)request.getAttribute("CURR_PAGENUM");
 
     //如果不使用分页查询, 则不显示分页面板
     if (currPage != null) {
-
-        int currPageNum = Integer.parseInt(currPage.toString());  //当前页码
-        int totalPages = Integer.parseInt((String) request.getAttribute("TOTAL_PAGES"));    //总页数
-        int naviPageLinks = Integer.parseInt((String) request.getAttribute("NAVI_PAGE_LINKS")); //导航栏的页码索引数
+        int currPageNum = currPage.intValue();                                  //当前页码
+        int totalPages = (Integer)request.getAttribute("TOTAL_PAGES");          //总页数
+        int naviPageLinks = (Integer)request.getAttribute("NAVI_PAGE_LINKS");   //页码链接数
 
         //计算导航项的范围
         int a = (int) Math.ceil((double) currPageNum / naviPageLinks);
@@ -94,7 +93,9 @@ Created by HuQingmiao on 2008-03-28
                                             size="2" maxLength="3" onkeydown="jump(this.value)"
                                             style="vertical-align: middle; "
                                             onkeyup="this.value=this.value.replace(/\D/g,'')"
-                                            onafterpaste="this.value=this.value.replace(/\D/g,'')"/> of <%= totalPages %></li>
+                                            onafterpaste="this.value=this.value.replace(/\D/g,'')"/>
+        of <%= totalPages %>
+    </li>
 </ul>
 
 <script>

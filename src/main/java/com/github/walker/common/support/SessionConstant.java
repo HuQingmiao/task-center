@@ -1,4 +1,4 @@
-package com.github.walker.taskcenter.common.support;
+package com.github.walker.common.support;
 
 /**
  * 集中管理Session范围的属性，所有公开的Session属性名必须在此注册以便查看和引用。

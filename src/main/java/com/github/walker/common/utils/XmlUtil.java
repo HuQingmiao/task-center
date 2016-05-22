@@ -1,4 +1,4 @@
-package com.github.walker.taskcenter.common.utils;
+package com.github.walker.common.utils;
 
 import java.io.File;
 import java.io.FileWriter;

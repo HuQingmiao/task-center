@@ -1,13 +1,12 @@
-package com.github.walker.taskcenter.common.mq;
+package com.github.walker.common.mq;
 
-import java.io.IOException;
-
-import com.github.walker.taskcenter.common.support.PropertyHolder;
+import com.github.walker.common.support.PropertyHolder;
+import com.rabbitmq.client.Connection;
+import com.rabbitmq.client.ConnectionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.rabbitmq.client.Connection;
-import com.rabbitmq.client.ConnectionFactory;
+import java.io.IOException;
 
 /**
  * Created by huqingmiao on 2015-4-22.

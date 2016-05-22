@@ -1,4 +1,4 @@
-package com.github.walker.taskcenter.common;
+package com.github.walker.common;
 
 
 import com.github.walker.mybatis.paginator.PageBounds;

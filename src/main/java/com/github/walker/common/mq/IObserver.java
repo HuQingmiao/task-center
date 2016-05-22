@@ -1,4 +1,4 @@
-package com.github.walker.taskcenter.common.mq;
+package com.github.walker.common.mq;
 
 /**
  *

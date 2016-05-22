@@ -1,10 +1,10 @@
 package com.github.walker.taskcenter.control;
 
 
+import com.github.walker.common.*;
+import com.github.walker.common.support.PagerControl;
+import com.github.walker.common.utils.PropertyUtil;
 import com.github.walker.mybatis.paginator.PageList;
-import com.github.walker.taskcenter.common.*;
-import com.github.walker.taskcenter.common.support.PagerControl;
-import com.github.walker.taskcenter.common.utils.PropertyUtil;
 import com.github.walker.taskcenter.service.AppCallService;
 import com.github.walker.taskcenter.service.AppRegService;
 import com.github.walker.taskcenter.service.EventCtrService;
@@ -66,12 +66,12 @@ public class AppRegMgrController extends BasicController {
             pager.setItemsCount(request, appRegList.size(), pageList.getTotalCount());
 
             map.put("appList", appRegList);
-            return "/listApps";
+            return "listApps";
 
         } catch (Exception e) {
             log.error(e.getMessage(), e);
             map.put("error", e.getMessage());
-            return "/listApps";
+            return "listApps";
 
         }
     }
@@ -83,12 +83,12 @@ public class AppRegMgrController extends BasicController {
             log.info(">>> queryApps()");
             String appName = form.getCriaAppName().trim();
             String hostName = form.getCriaHostName().trim();
-            return "/addApp";
+            return "addApp";
 
         } catch (Exception e) {
             log.error(e.getMessage(), e);
             map.put("error", e.getMessage());
-            return "/addApp";
+            return "addApp";
         }
     }
 
@@ -102,7 +102,7 @@ public class AppRegMgrController extends BasicController {
             AppReg existedAppReg = appRegService.findByCodeOrByName(appCode, appName);
             if (existedAppReg != null) {
                 map.put("error", "提交失败, 请不要录入编码或名称重复的应用!");
-                return "/addApp";
+                return "addApp";
             }
 
             AppReg appReg = new AppReg();
@@ -110,12 +110,12 @@ public class AppRegMgrController extends BasicController {
 
             appRegService.addAppConfig(appReg);
             map.put("success", "提交成功! ");
-            return "/addApp";
+            return "addApp";
 
         } catch (Exception e) {
             log.error(e.getMessage(), e);
             map.put("error", e.getMessage());
-            return "/addApp";
+            return "addApp";
         }
 
     }
@@ -133,12 +133,12 @@ public class AppRegMgrController extends BasicController {
 
             String appName = form.getCriaAppName().trim();
             String hostName = form.getCriaHostName().trim();
-            return "/updateApp";
+            return "updateApp";
 
         } catch (Exception e) {
             log.error(e.getMessage(), e);
             map.put("error", e.getMessage());
-            return "/updateApp";
+            return "updateApp";
         }
     }
 
@@ -153,7 +153,7 @@ public class AppRegMgrController extends BasicController {
             AppReg existedAppReg = appRegService.findByCodeOrByName(appCode, appName);
             if (existedAppReg != null && !existedAppReg.getId().toString().equals(id)) {
                 map.put("error", "修改失败, 请不要录入编码或名称重复的应用!");
-                return "/addApp";
+                return "addApp";
             }
 
             AppReg appReg = appRegService.findAppById(new Long(id));
@@ -186,7 +186,7 @@ public class AppRegMgrController extends BasicController {
         } catch (Exception e) {
             log.error(e.getMessage(), e);
             map.put("error", e.getMessage());
-            return "/listApps";
+            return "listApps";
         }
     }
 
@@ -227,12 +227,12 @@ public class AppRegMgrController extends BasicController {
                 form.setScheduleEnable(String.valueOf(BasicService.ENABLE_TRUE));
             }
 
-            return "/setSchedule";
+            return "setSchedule";
 
         } catch (Exception e) {
             log.error(e.getMessage(), e);
             map.put("error", e.getMessage());
-            return "/setSchedule";
+            return "setSchedule";
         }
     }
 

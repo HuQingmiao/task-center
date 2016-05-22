@@ -1,6 +1,6 @@
 package com.github.walker.taskcenter.service;
 
-import com.github.walker.taskcenter.common.AbsCommnad;
+import com.github.walker.common.AbsCommnad;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 

@@ -1,11 +1,11 @@
 package com.github.walker.taskcenter.control;
 
-import com.github.walker.taskcenter.common.AbsCommnad;
-import com.github.walker.taskcenter.common.BasicService;
-import com.github.walker.taskcenter.common.ICommand;
-import com.github.walker.taskcenter.common.mq.IObserver;
-import com.github.walker.taskcenter.common.mq.MqConsumer;
-import com.github.walker.taskcenter.common.support.PropertyHolder;
+import com.github.walker.common.AbsCommnad;
+import com.github.walker.common.BasicService;
+import com.github.walker.common.ICommand;
+import com.github.walker.common.mq.IObserver;
+import com.github.walker.common.mq.MqConsumer;
+import com.github.walker.common.support.PropertyHolder;
 import com.github.walker.taskcenter.service.AppCallService;
 import com.github.walker.taskcenter.vo.AppReg;
 import org.slf4j.Logger;

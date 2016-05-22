@@ -1,7 +1,7 @@
 package com.github.walker.taskcenter.service;
 
 import com.github.walker.mybatis.paginator.PageBounds;
-import com.github.walker.taskcenter.common.BasicService;
+import com.github.walker.common.BasicService;
 import com.github.walker.taskcenter.dao.ScheduleControlDao;
 import com.github.walker.taskcenter.vo.ScheduleControl;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,10 +1,10 @@
-package com.github.walker.taskcenter.common;
+package com.github.walker.common;
 
-import com.github.walker.taskcenter.common.utils.DateTimeUtil;
+import com.github.walker.common.utils.DateTimeUtil;
 import com.github.walker.taskcenter.service.HttpCommand;
 import com.github.walker.taskcenter.service.ShellCommand;
 import com.github.walker.taskcenter.vo.AppCallLog;
-import com.github.walker.taskcenter.common.support.GlobalContext;
+import com.github.walker.common.support.GlobalContext;
 import com.github.walker.taskcenter.dao.AppCallLogDao;
 import com.github.walker.taskcenter.dao.ScheduleControlDao;
 import com.github.walker.taskcenter.vo.AppReg;

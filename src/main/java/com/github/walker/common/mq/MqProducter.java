@@ -1,38 +1,37 @@
-package com.github.walker.taskcenter.common.mq;
-
-import java.io.IOException;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+package com.github.walker.common.mq;
 
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
-import com.rabbitmq.client.QueueingConsumer;
+import com.rabbitmq.client.MessageProperties;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.io.IOException;
+
 
 /**
- * MQ消费者，接收MQ消息后调用相应观察者，由观察者调用具体的业务逻辑
+ * MQ生产者
  * <p/>
  * Created by HuQingmiao
  */
-public class MqConsumer  {
+public class MqProducter {
 
     private Logger log = LoggerFactory.getLogger(this.getClass());
 
     private Connection connection = null;
     private Channel channel = null;
 
-
     //private String mqType = ConfigMgr.getProperty("rabbitmq.type");
     //private String mqExchangeName = ConfigMgr.getProperty("rabbitmq.queueName");
 
     /**
-     * 从指定队列接收消息，然后通过观察者对象处理
+     * 向指定队列发送消息
      *
      * @param queueName
-     * @param observer
+     * @param message
      * @throws Exception
      */
-    public void receive(String queueName, IObserver observer) throws Exception {
+    public void send(String queueName, Object message) throws IOException {
         try {
             this.init();
 
@@ -43,22 +42,18 @@ public class MqConsumer  {
             //channel.queueBind(queueName, mqExchangeName, queueName);
             //log.info("Bind queue {} to {} success! ", queueName, mqExchangeName);
 
-            QueueingConsumer consumer = new QueueingConsumer(channel);
-            channel.basicConsume(queueName, true, consumer);
+            byte[] msgBodyBytes = message.toString().getBytes();
 
-            while (true) {
-                //阻塞，直到接收到一条消息
-                QueueingConsumer.Delivery delivery = consumer.nextDelivery();
-                String message = new String(delivery.getBody());
-                log.info("Received a message: " + message);
-
-                observer.update(message);
-            }
+            // 往队列发送消息
+            channel.basicPublish("", queueName,
+                    MessageProperties.PERSISTENT_TEXT_PLAIN, msgBodyBytes);
+            log.info("Send a message, it's length: {} bytes. ", msgBodyBytes.length);
 
         } finally {
             this.destory();
         }
     }
+
 
     private void init() throws IOException {
         try {
@@ -90,18 +85,5 @@ public class MqConsumer  {
             log.error("Failed to close MQ connection: ", e);
         }
     }
-
-//    /**
-//     * 重新发送处理出错的信息
-//     *
-//     * @param queuename
-//     * @param message
-//     * @return void
-//     * @throws java.io.IOException
-//     */
-//    private void resend(String queuename, String message) throws IOException {
-//        MqProducter prd = new MqProducter();
-//        prd.send(queuename, message);
-//    }
 
 }

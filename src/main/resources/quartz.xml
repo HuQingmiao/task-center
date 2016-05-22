@@ -15,7 +15,7 @@
 						http://www.springframework.org/schema/aop/spring-aop.xsd">
 
     <!-- 加载BEAN后调用, 为防止加载Bean逻辑因代码显示加载Spring.xml时被重复调用，特将此行放在本quartz.xml文件中 -->
-    <bean id="refBeanPostProcessor" class="com.github.walker.taskcenter.common.support.RefBeanPostProcessor"/>
+    <bean id="refBeanPostProcessor" class="com.github.walker.common.support.RefBeanPostProcessor"/>
 
     <bean id="eventCaller" class="com.github.walker.taskcenter.control.EventCaller"/>
 
@@ -52,7 +52,6 @@
         </property>
 
         <!--<property name="taskExecutor" ref="executor"/>-->
-
     </bean>
 
 </beans>

@@ -1,4 +1,4 @@
-package com.github.walker.taskcenter.common.support;
+package com.github.walker.common.support;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;

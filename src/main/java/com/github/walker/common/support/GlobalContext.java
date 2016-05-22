@@ -1,4 +1,4 @@
-package com.github.walker.taskcenter.common.support;
+package com.github.walker.common.support;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;

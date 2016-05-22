@@ -36,7 +36,7 @@
 
     <filter>
         <filter-name>sessionFilter</filter-name>
-        <filter-class>com.github.walker.taskcenter.common.support.SessionFilter</filter-class>
+        <filter-class>com.github.walker.common.support.SessionFilter</filter-class>
     </filter>
 
     <filter>
