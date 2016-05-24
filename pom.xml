@@ -129,9 +129,9 @@
         <dependency><!-- mybatis分页控件 -->
             <groupId>com.github.walker</groupId>
             <artifactId>mybatis-paginator</artifactId>
-            <version>1.2.1</version>
-            <scope>system</scope>
-            <systemPath>${basedir}/lib/mybatis-paginator-1.2.1.jar</systemPath>
+            <version>1.2.2</version>
+            <!--<scope>system</scope>-->
+            <!--<systemPath>${basedir}/lib/mybatis-paginator-1.2.1.jar</systemPath>-->
         </dependency>
 
 
