@@ -37,7 +37,6 @@
         </dependency>
         -->
 
-
         <!-- Spring 系列-->
         <dependency>
             <groupId>org.springframework</groupId>
@@ -81,7 +80,7 @@
             <version>2.2.2</version>
         </dependency>
 
-        <!--  AspectJ 是一个面向切面的框架，它扩展了JAVA语言-->
+        <!-- AspectJ 是一个面向切面的框架，它扩展了JAVA语言-->
         <dependency>
             <groupId>org.aspectj</groupId>
             <artifactId>aspectjweaver</artifactId>
@@ -125,14 +124,14 @@
             <groupId>org.mybatis</groupId>
             <artifactId>mybatis-spring</artifactId>
             <version>1.2.2</version>
-        </dependency
-                >
+        </dependency>
+
         <dependency>
             <groupId>com.github.walker</groupId>
             <artifactId>mybatis-paginator</artifactId>
             <version>1.2.2</version>
-            <!--<scope>system</scope>-->
-            <!--<systemPath>${basedir}/lib/mybatis-paginator-1.2.2.jar</systemPath>-->
+            <scope>system</scope>
+            <systemPath>${basedir}/lib/mybatis-paginator-1.2.2.jar</systemPath>
         </dependency>
 
 
