@@ -23,7 +23,7 @@ public class RefBeanPostProcessor implements BeanPostProcessor {
     @Override
     public Object postProcessAfterInitialization(Object arg0, String arg1) throws BeansException {
         try {
-            log.info("<<<" + arg0.getClass().getName() + "     " + arg1);
+//            log.info("<<<" + arg0.getClass().getName() + "     " + arg1);
 //            if (arg0 instanceof EventCaller) {
 //                new Thread((EventCaller) arg0).start();
 //            }
