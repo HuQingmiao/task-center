@@ -26,7 +26,7 @@ public class ScheduleCtrService extends BasicService {
     private ScheduleControlDao scheduleControlDao;
 
 
-    public void addScheduleCtr(Long appId, String cronExpression) throws Exception {
+    public void addScheduleCtr(Long appId, String cronExpression) {
         ScheduleControl scheduleCtr = new ScheduleControl();
         scheduleCtr.setAppId(appId);
         scheduleCtr.setCronExpression(cronExpression);
@@ -35,7 +35,7 @@ public class ScheduleCtrService extends BasicService {
         scheduleControlDao.save(scheduleCtr);
     }
 
-    public void updateScheduleCtr(ScheduleControl scheduleCtr) throws Exception {
+    public void updateScheduleCtr(ScheduleControl scheduleCtr) {
         scheduleControlDao.update(scheduleCtr);
     }
 

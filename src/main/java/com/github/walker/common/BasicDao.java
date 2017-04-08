@@ -3,6 +3,7 @@ package com.github.walker.common;
 
 import com.github.walker.mybatis.paginator.PageBounds;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -38,5 +39,5 @@ public interface BasicDao {
 
     public BasicVo findByPK(Long id);
 
-    public List find(Map<String, Object> paramMap, PageBounds pageBounds);
+    public ArrayList find(Map<String, Object> paramMap, PageBounds pageBounds);
 }
