@@ -226,7 +226,7 @@
 
                 <!-- mariaDB -->
                 <mariaDB.jdbcDriver>org.mariadb.jdbc.Driver</mariaDB.jdbcDriver>
-                <mariaDB.jdbcUrl>jdbc:mariadb://localhost:3306/fincardb</mariaDB.jdbcUrl>
+                <mariaDB.jdbcUrl>jdbc:mariadb://localhost:3306/test</mariaDB.jdbcUrl>
                 <mariaDB.username>dev</mariaDB.username>
                 <mariaDB.password>123456</mariaDB.password>
 
