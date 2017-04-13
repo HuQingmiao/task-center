@@ -43,9 +43,9 @@ public class AppCallService extends BasicService {
      *
      * @param appCode
      * @return
-     * @throws Exception
+     * 
      */
-    public AppReg findEventApp(String appCode) throws Exception {
+    public AppReg findEventApp(String appCode)  {
         AppReg appReg = appRegDao.findEventApp(appCode);
         return appReg;
     }
@@ -55,9 +55,9 @@ public class AppCallService extends BasicService {
      * 查找所有设定为时间触发的应用
      *
      * @return
-     * @throws Exception
+     * 
      */
-    public List<AppReg> findScheduleApps() throws Exception {
+    public List<AppReg> findScheduleApps()  {
         List<AppReg> appRegList = appRegDao.findScheduleApps();
         return appRegList;
     }
@@ -68,9 +68,9 @@ public class AppCallService extends BasicService {
      *
      * @param id
      * @param nextCallTime
-     * @throws Exception
+     * 
      */
-    public void updateScheduler(Long id, Date nextCallTime) throws Exception {
+    public void updateScheduler(Long id, Date nextCallTime)  {
         ScheduleControl scheduleCtr = new ScheduleControl();
         scheduleCtr.setId(id);
         scheduleCtr.setNextCallTime(DateTimeUtil.toSqlTimestamp(nextCallTime));
@@ -101,7 +101,7 @@ public class AppCallService extends BasicService {
 
 
 
-    public List<AppCallLog> findCallLog(Long appId, int pageNum, int rowcntPerPage) throws Exception {
+    public List<AppCallLog> findCallLog(Long appId, int pageNum, int rowcntPerPage)  {
         HashMap<String, Object> paramMap = new HashMap<String, Object>();
         if (appId != null) {
             paramMap.put("appId", appId );

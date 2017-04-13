@@ -18,8 +18,8 @@
     <bean id="mappings" class="com.github.walker.common.support.PropertyHolder">
         <property name="locations">
             <list>
-                 <value>classpath:config.properties</value>
-                <!-- <value>file:/app/task-center/config/config.properties</value>-->
+                <!--<value>classpath:config.properties</value>-->
+                <value>file:${conf.dir}/config.properties</value>
             </list>
         </property>
     </bean>
@@ -37,45 +37,30 @@
     <context:component-scan base-package="com.github.walker.taskcenter.service"/>
 
 
-    <!--<bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">-->
-    <!--<property name="driverClassName" value="${jdbcDriver}"/>-->
-    <!--<property name="url" value="${jdbcUrl}"/>-->
-    <!--<property name="username" value="${username}"/>-->
-    <!--<property name="password" value="${password}"/>-->
-    <!--<property name="initialSize" value="${initialSize}"/>-->
-    <!--<property name="maxTotal" value="${maxTotal}"/>-->
-    <!--<property name="maxIdle" value="${maxIdle}"/>-->
-    <!--<property name="minIdle" value="${minIdle}"/>-->
-    <!--<property name="maxWaitMillis" value="${maxWaitMillis}"/>-->
-    <!--<property name="removeAbandonedTimeout" value="120"/>-->
-    <!--<property name="testOnBorrow" value="true"/>-->
-    <!--<property name="validationQuery" value="select 1"/>-->
-    <!--</bean>-->
-
     <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
-        <property name="driverClassName" value="${jdbcDriver}" />
-        <property name="url" value="${jdbcUrl}" />
-        <property name="username" value="${username}" />
-        <property name="password" value="${password}" />
+        <property name="driverClassName" value="${mariaDB.jdbcDriver}"/>
+        <property name="url" value="${mariaDB.jdbcUrl}"/>
+        <property name="username" value="${mariaDB.username}"/>
+        <property name="password" value="${mariaDB.password}"/>
 
         <!-- 配置初始化大小、最小、最大 -->
-        <property name="initialSize" value="${initialSize}" />
-        <property name="minIdle" value="${minIdle}" />
-        <property name="maxActive" value="${maxActive}" />
+        <property name="initialSize" value="${mariaDB.initialSize}"/>
+        <property name="minIdle" value="${mariaDB.minIdle}"/>
+        <property name="maxActive" value="${mariaDB.maxActive}"/>
 
         <!-- 配置获取连接等待超时的时间 -->
-        <property name="maxWait" value="50000" />
+        <property name="maxWait" value="50000"/>
 
         <!-- 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 -->
-        <property name="timeBetweenEvictionRunsMillis" value="100000" />
+        <property name="timeBetweenEvictionRunsMillis" value="60000"/>
 
         <!-- 配置一个连接在池中最小生存的时间，单位是毫秒 -->
-        <property name="minEvictableIdleTimeMillis" value="300000" />
+        <property name="minEvictableIdleTimeMillis" value="300000"/>
 
-        <property name="testWhileIdle" value="true" />
-        <property name="testOnBorrow" value="false" />
-        <property name="testOnReturn" value="false" />
-        <property name="validationQuery" value="select 1 from dual" />
+        <property name="testWhileIdle" value="true"/>
+        <property name="testOnBorrow" value="false"/>
+        <property name="testOnReturn" value="false"/>
+        <property name="validationQuery" value="select 1 from dual"/>
     </bean>
 
     <bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">

@@ -27,7 +27,7 @@ public class EventCtrService extends BasicService {
     private EventControlDao eventControlDao;
 
 
-    public void addEventCtr(Long appId) throws Exception {
+    public void addEventCtr(Long appId)  {
         EventControl eventCtr = new EventControl();
         eventCtr.setAppId(appId);
         eventCtr.setEnable(BasicService.ENABLE_TRUE);//默认为启用
@@ -35,7 +35,7 @@ public class EventCtrService extends BasicService {
         eventControlDao.save(eventCtr);
     }
 
-    public void updateEventCtr(EventControl eventCtr) throws Exception {
+    public void updateEventCtr(EventControl eventCtr)  {
         eventControlDao.update(eventCtr);
     }
 

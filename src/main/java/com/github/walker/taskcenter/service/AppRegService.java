@@ -28,14 +28,14 @@ public class AppRegService extends BasicService {
     private AppRegDao appRegDao;
 
 
-    public void addAppConfig(AppReg appReg) throws Exception {
+    public void addAppConfig(AppReg appReg)  {
         appReg.setState(BasicService.APP_REG_STATE_IDLE);//默认为休闲，即未运行
         appReg.setCreateTime(DateTimeUtil.currentTime());
         appRegDao.save(appReg);
 
     }
 
-    public void updateAppConfig(AppReg appConfig) throws Exception {
+    public void updateAppConfig(AppReg appConfig)  {
         appRegDao.update(appConfig);
     }
 
@@ -60,7 +60,7 @@ public class AppRegService extends BasicService {
     }
 
 
-    public List<AppReg> findAppConfigs(String appCode, String appName, String hostName, int offset, int rowCnt) throws Exception {
+    public List<AppReg> findAppConfigs(String appCode, String appName, String hostName, int offset, int rowCnt)  {
         HashMap<String, Object> paramMap = new HashMap<String, Object>();
         if (appCode != null) {
             paramMap.put("appCode", "%" + appCode + "%");
