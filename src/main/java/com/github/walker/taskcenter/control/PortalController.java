@@ -1,8 +1,8 @@
 package com.github.walker.taskcenter.control;
 
 import com.github.walker.mybatis.paginator.PageList;
-import com.github.walker.common.BasicController;
-import com.github.walker.common.support.PagerControl;
+import com.github.walker.taskcenter.common.BasicController;
+import com.github.walker.taskcenter.common.support.PagerControl;
 import com.github.walker.taskcenter.vo.AppReg;
 import com.github.walker.taskcenter.service.AppRegService;
 

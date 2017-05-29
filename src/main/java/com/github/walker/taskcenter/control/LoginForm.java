@@ -1,6 +1,6 @@
 package com.github.walker.taskcenter.control;
 
-import com.github.walker.common.BasicForm;
+import com.github.walker.taskcenter.common.BasicForm;
 
 /**
  *

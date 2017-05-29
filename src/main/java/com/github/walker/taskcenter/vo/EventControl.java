@@ -1,7 +1,7 @@
 package com.github.walker.taskcenter.vo;
 
 
-import com.github.walker.common.BasicVo;
+import com.github.walker.taskcenter.common.BasicVo;
 
 /**
  * 事件调度控制

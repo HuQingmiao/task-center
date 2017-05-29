@@ -1,9 +1,9 @@
 package com.github.walker.taskcenter.control;
 
 
-import com.github.walker.common.*;
-import com.github.walker.common.support.PagerControl;
-import com.github.walker.common.utils.PropertyUtil;
+import com.github.walker.taskcenter.common.*;
+import com.github.walker.taskcenter.common.support.PagerControl;
+import com.github.walker.taskcenter.common.utils.PropertyUtil;
 import com.github.walker.mybatis.paginator.PageList;
 import com.github.walker.taskcenter.service.AppCallService;
 import com.github.walker.taskcenter.service.AppRegService;

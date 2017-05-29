@@ -10,7 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
-import com.github.walker.common.AbsCommnad;
+import com.github.walker.taskcenter.common.AbsCommnad;
 
 /**
  * Http Request命令类

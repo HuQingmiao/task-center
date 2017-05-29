@@ -1,0 +1,33 @@
+<assembly xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/assembly-1.0.0.xsd">
+    <id>package</id>
+    <formats>
+        <format>tar.gz</format>
+    </formats>
+    <includeBaseDirectory>true</includeBaseDirectory>
+
+    <fileSets>
+        <fileSet>
+            <directory>target/${project.artifactId}/WEB-INF/classes</directory>
+            <outputDirectory>conf</outputDirectory>
+            <fileMode>0640</fileMode>
+            <includes>
+                <include>*.properties</include>
+                <include>*.xml</include>
+            </includes>
+        </fileSet>
+        <fileSet>
+            <directory>target/${project.artifactId}</directory>
+            <outputDirectory>${project.artifactId}</outputDirectory>
+            <fileMode>0640</fileMode>
+            <includes>
+                <include>**/*</include>
+            </includes>
+            <excludes>
+                <exclude>**/classes/*.properties</exclude>
+                <exclude>**/classes/*.xml</exclude>
+            </excludes>
+        </fileSet>
+
+    </fileSets>
+</assembly>
