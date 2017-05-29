@@ -305,7 +305,7 @@
                 </executions>
             </plugin>
 
-            <!-- 运行bat文件，提取依赖包到lib目录 -->
+            <!-- 执行clean时，运行bat文件，重新提取依赖包到lib目录 -->
             <plugin>
                 <artifactId>maven-dependency-plugin</artifactId>
                 <configuration>
