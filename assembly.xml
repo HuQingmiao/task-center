@@ -16,18 +16,28 @@
                 <include>*.xml</include>
             </includes>
         </fileSet>
+
         <fileSet>
-            <directory>target/${project.artifactId}</directory>
-            <outputDirectory>${project.artifactId}</outputDirectory>
+            <directory>target</directory>
+            <outputDirectory>/</outputDirectory>
             <fileMode>0640</fileMode>
             <includes>
-                <include>**/*</include>
+                <include>${project.artifactId}.war</include>
             </includes>
-            <excludes>
-                <exclude>**/classes/*.properties</exclude>
-                <exclude>**/classes/*.xml</exclude>
-            </excludes>
         </fileSet>
+
+        <!--<fileSet>-->
+            <!--<directory>target/${project.artifactId}</directory>-->
+            <!--<outputDirectory>${project.artifactId}</outputDirectory>-->
+            <!--<fileMode>0640</fileMode>-->
+            <!--<includes>-->
+                <!--<include>**/*</include>-->
+            <!--</includes>-->
+            <!--<excludes>-->
+                <!--<exclude>**/classes/*.properties</exclude>-->
+                <!--<exclude>**/classes/*.xml</exclude>-->
+            <!--</excludes>-->
+        <!--</fileSet>-->
 
     </fileSets>
 </assembly>

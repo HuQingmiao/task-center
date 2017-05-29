@@ -217,12 +217,6 @@
             <properties>
                 <log.file>${basedir}/logs/${project.artifactId}.log</log.file>
 
-                <!-- mysql -->
-                <!--<mariaDB.jdbcDriver>com.mysql.jdbc.Driver</mariaDB.jdbcDriver>-->
-                <!--<mariaDB.jdbcUrl>jdbc:mysql://localhost:3306/test</mariaDB.jdbcUrl>-->
-                <!--<mariaDB.username>root</mariaDB.username>-->
-                <!--<mariaDB.password>walker</mariaDB.password>-->
-
                 <!-- mariaDB -->
                 <mariaDB.jdbcDriver>org.mariadb.jdbc.Driver</mariaDB.jdbcDriver>
                 <mariaDB.jdbcUrl>jdbc:mariadb://localhost:3306/test</mariaDB.jdbcUrl>
@@ -237,12 +231,6 @@
             <properties>
                 <log.file>d:/${project.artifactId}/logs/${project.artifactId}.log</log.file>
 
-                <!-- mysql -->
-                <!--<mariaDB.jdbcDriver>com.mysql.jdbc.Driver</mariaDB.jdbcDriver>-->
-                <!--<mariaDB.jdbcUrl>jdbc:mysql://localhost:3306/test</mariaDB.jdbcUrl>-->
-                <!--<mariaDB.username>root</mariaDB.username>-->
-                <!--<mariaDB.password>walker</mariaDB.password>-->
-
                 <!-- mariaDB -->
                 <mariaDB.jdbcDriver>org.mariadb.jdbc.Driver</mariaDB.jdbcDriver>
                 <mariaDB.jdbcUrl>jdbc:mariadb://localhost:3306/fincardb?allowMultiQueries=true</mariaDB.jdbcUrl>
@@ -256,19 +244,12 @@
             <id>prd</id>
             <properties>
                 <log.file>/appLog/taskcenter/logs/${project.artifactId}.log</log.file>
-                <conf.dir>${basedir}/target/classes</conf.dir>
-
-                <!-- mysql -->
-                <!--<mariaDB.jdbcDriver>com.mysql.jdbc.Driver</mariaDB.jdbcDriver>-->
-                <!--<mariaDB.jdbcUrl>jdbc:mysql://localhost:3306/test</mariaDB.jdbcUrl>-->
-                <!--<mariaDB.username>root</mariaDB.username>-->
-                <!--<mariaDB.password>walker</mariaDB.password>-->
 
                 <!-- mariaDB -->
                 <mariaDB.jdbcDriver>org.mariadb.jdbc.Driver</mariaDB.jdbcDriver>
-                <mariaDB.jdbcUrl>jdbc:mariadb://127.0.0.1:3306/fincardb</mariaDB.jdbcUrl>
-                <mariaDB.username>fincar</mariaDB.username>
-                <mariaDB.password>fincar@2016</mariaDB.password>
+                <mariaDB.jdbcUrl>jdbc:mariadb://localhost:3306/test</mariaDB.jdbcUrl>
+                <mariaDB.username>dev</mariaDB.username>
+                <mariaDB.password>123456</mariaDB.password>
 
             </properties>
         </profile>
@@ -340,7 +321,7 @@
                 <executions>
                     <execution>
                         <id>copy-dependencies</id>
-                        <phase>compile</phase>
+                        <phase>clean</phase>
                         <goals>
                             <goal>exec</goal>
                         </goals>
@@ -351,6 +332,18 @@
                 </executions>
             </plugin>
 
+
+            <!-- 打war包时，剔除配置文件，实现配置分离 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>3.1.0</version>
+                <configuration>
+                    <packagingExcludes>
+                        WEB-INF/classes/*.properties, WEB-INF/classes/*.xml, WEB-INF/classes/*.properties
+                    </packagingExcludes>
+                </configuration>
+            </plugin>
 
             <!-- 按照assembly.xml的配置把当前jar及其依赖包、脚本、执行文件等打成tar.gz -->
             <plugin>
