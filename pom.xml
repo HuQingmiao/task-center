@@ -283,7 +283,7 @@
                 </configuration>
             </plugin>
 
-            <!-- 将src/main/webapp目录下的jsp、js、web.xml等文件复制到target/basewf，使得target/basewf成为可执行的完整的web应用包 -->
+            <!-- 将src/main/webapp目录下的jsp、js、web.xml等文件复制到target/${project.artifactId} -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-antrun-plugin</artifactId>
