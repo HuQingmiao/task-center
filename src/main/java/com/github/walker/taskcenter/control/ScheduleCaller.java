@@ -1,8 +1,8 @@
 package com.github.walker.taskcenter.control;
 
-import com.github.walker.common.AbsCommnad;
-import com.github.walker.common.BasicService;
-import com.github.walker.common.ICommand;
+import com.github.walker.taskcenter.common.AbsCommnad;
+import com.github.walker.taskcenter.common.BasicService;
+import com.github.walker.taskcenter.common.ICommand;
 import com.github.walker.taskcenter.vo.AppReg;
 
 

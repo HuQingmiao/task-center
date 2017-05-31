@@ -1,0 +1,13 @@
+
+1. 通过`mvn package` 打包得到：${app}.tar.gz 。
+
+2. 对 ${app}.tar.gz解压，得到：${app}.war, conf；
+   其中${app}.war是剔除掉配置文件的war包， conf是存放配置文件的目录。
+
+3. 若要在windows下部署，则需要修改 ${TOMCAT_HOME}/bin/catalina.bat 中的一行，即将行：
+    'set CLASSPATH=' 替换为 'set CLASSPATH= ${部署根目录}/${app}/conf'
+
+   若要在linux下部署，则需要修改 ${TOMCAT_HOME}/bin/catalina.sh 中的一行，即将行：
+    'CLASSPATH=' 替换为 'CLASSPATH= {部署根目录}/${app}/conf'
+
+OK, 也就是配置文件放哪，就把classpath扩展到哪。

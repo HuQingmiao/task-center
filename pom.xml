@@ -215,14 +215,7 @@
                 <activeByDefault>true</activeByDefault>
             </activation>
             <properties>
-                <log.file>d:/logs/${project.artifactId}.log</log.file>
-                <conf.dir>${basedir}/target/webapp/WEB-INF/classes</conf.dir>
-
-                <!-- mysql -->
-                <!--<mariaDB.jdbcDriver>com.mysql.jdbc.Driver</mariaDB.jdbcDriver>-->
-                <!--<mariaDB.jdbcUrl>jdbc:mysql://localhost:3306/test</mariaDB.jdbcUrl>-->
-                <!--<mariaDB.username>root</mariaDB.username>-->
-                <!--<mariaDB.password>walker</mariaDB.password>-->
+                <log.file>${basedir}/logs/${project.artifactId}.log</log.file>
 
                 <!-- mariaDB -->
                 <mariaDB.jdbcDriver>org.mariadb.jdbc.Driver</mariaDB.jdbcDriver>
@@ -236,14 +229,7 @@
         <profile>
             <id>dev</id>
             <properties>
-                <log.file>/app/fincar/logs/${project.artifactId}.log</log.file>
-                <conf.dir>${basedir}/target/classes</conf.dir>
-
-                <!-- mysql -->
-                <!--<mariaDB.jdbcDriver>com.mysql.jdbc.Driver</mariaDB.jdbcDriver>-->
-                <!--<mariaDB.jdbcUrl>jdbc:mysql://localhost:3306/test</mariaDB.jdbcUrl>-->
-                <!--<mariaDB.username>root</mariaDB.username>-->
-                <!--<mariaDB.password>walker</mariaDB.password>-->
+                <log.file>d:/${project.artifactId}/logs/${project.artifactId}.log</log.file>
 
                 <!-- mariaDB -->
                 <mariaDB.jdbcDriver>org.mariadb.jdbc.Driver</mariaDB.jdbcDriver>
@@ -258,49 +244,46 @@
             <id>prd</id>
             <properties>
                 <log.file>/appLog/taskcenter/logs/${project.artifactId}.log</log.file>
-                <conf.dir>${basedir}/target/classes</conf.dir>
-
-                <!-- mysql -->
-                <!--<mariaDB.jdbcDriver>com.mysql.jdbc.Driver</mariaDB.jdbcDriver>-->
-                <!--<mariaDB.jdbcUrl>jdbc:mysql://localhost:3306/test</mariaDB.jdbcUrl>-->
-                <!--<mariaDB.username>root</mariaDB.username>-->
-                <!--<mariaDB.password>walker</mariaDB.password>-->
 
                 <!-- mariaDB -->
                 <mariaDB.jdbcDriver>org.mariadb.jdbc.Driver</mariaDB.jdbcDriver>
-                <mariaDB.jdbcUrl>jdbc:mariadb://127.0.0.1:3306/fincardb</mariaDB.jdbcUrl>
-                <mariaDB.username>fincar</mariaDB.username>
-                <mariaDB.password>fincar@2016</mariaDB.password>
+                <mariaDB.jdbcUrl>jdbc:mariadb://localhost:3306/test</mariaDB.jdbcUrl>
+                <mariaDB.username>dev</mariaDB.username>
+                <mariaDB.password>123456</mariaDB.password>
 
             </properties>
         </profile>
     </profiles>
 
     <build>
-
         <finalName>${project.artifactId}</finalName>
 
-        <outputDirectory>target/webapp/WEB-INF/classes</outputDirectory>
-
+        <outputDirectory>target/${project.artifactId}/WEB-INF/classes</outputDirectory>
 
         <resources>
             <resource>
                 <directory>src/main/resources</directory>
                 <filtering>true</filtering>
+                <!--<excludes>-->
+                <!--<exclude>**/*.java</exclude>-->
+                <!--<exclude>**/.svn/*</exclude>-->
+                <!--</excludes>-->
             </resource>
         </resources>
 
         <plugins>
-
             <plugin>
-                <artifactId>maven-dependency-plugin</artifactId>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>2.5.1</version>
                 <configuration>
-                    <outputDirectory>target/webapp/WEB-INF/lib</outputDirectory>
-                    <excludeTransitive>false</excludeTransitive>
-                    <stripVersion>true</stripVersion>
+                    <source>1.7</source>
+                    <target>1.7</target>
+                    <encoding>utf-8</encoding>
                 </configuration>
             </plugin>
 
+            <!-- 将src/main/webapp目录下的jsp、js、web.xml等文件复制到target/${project.artifactId} -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-antrun-plugin</artifactId>
@@ -313,20 +296,81 @@
                         </goals>
                         <configuration>
                             <target>
-                                <!--
-                                <copy file="src/main/java/a.xml" includes="**/*.xml"
-                                      tofile="target/classes/a.xml" overwrite="true"/>
-                                -->
-                                <copy todir="target/webapp" overwrite="true">
+                                <copy todir="target/${project.artifactId}" overwrite="true">
                                     <fileset dir="src/main/webapp" includes="**/*"/>
                                 </copy>
-
                             </target>
                         </configuration>
                     </execution>
                 </executions>
             </plugin>
 
+            <!-- 执行clean时，运行bat文件，重新提取依赖包到lib目录 -->
+            <plugin>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <configuration>
+                    <outputDirectory>target/${project.artifactId}/WEB-INF/lib</outputDirectory>
+                    <excludeTransitive>false</excludeTransitive>
+                    <stripVersion>false</stripVersion>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>1.6.0</version>
+                <executions>
+                    <execution>
+                        <id>copy-dependencies</id>
+                        <phase>clean</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <executable>${basedir}/copy-dependencies.bat</executable>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+
+            <!-- 打war包时，剔除配置文件，实现配置分离 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>3.1.0</version>
+                <configuration>
+                    <packagingExcludes>
+                        WEB-INF/classes/*.properties, WEB-INF/classes/*.xml, WEB-INF/classes/*.properties
+                    </packagingExcludes>
+                </configuration>
+            </plugin>
+
+            <!-- 按照assembly.xml的配置把当前jar及其依赖包、脚本、执行文件等打成tar.gz -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <configuration>
+                    <!-- not append assembly id in release file name -->
+                    <appendAssemblyId>false</appendAssemblyId>
+                    <finalName>${project.artifactId}</finalName>
+                    <descriptors>
+                        <descriptor>assembly.xml</descriptor>
+                    </descriptors>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>make-assembly</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+
+            <!-- 以命令行方式执行jar中的Main方法 -->
+            <!--
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
@@ -349,7 +393,7 @@
                                 </transformer>
                                 <transformer
                                         implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                                    <mainClass>TestService</mainClass>
+                                    <mainClass>com.xxx.xxx.XXX</mainClass>
                                 </transformer>
                             </transformers>
 
@@ -357,6 +401,7 @@
                     </execution>
                 </executions>
             </plugin>
+            -->
 
         </plugins>
     </build>

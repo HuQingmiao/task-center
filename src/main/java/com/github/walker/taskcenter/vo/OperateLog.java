@@ -1,6 +1,6 @@
 package com.github.walker.taskcenter.vo;
 
-import com.github.walker.common.BasicVo;
+import com.github.walker.taskcenter.common.BasicVo;
 
 public class OperateLog extends BasicVo {
     private static final long serialVersionUID = 1L;

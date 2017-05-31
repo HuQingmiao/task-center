@@ -1,7 +1,7 @@
 package com.github.walker.taskcenter.vo;
 
 
-import com.github.walker.common.BasicVo;
+import com.github.walker.taskcenter.common.BasicVo;
 
 /**
  * 系统编码库，即数据字典
