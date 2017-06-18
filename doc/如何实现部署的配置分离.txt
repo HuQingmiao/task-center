@@ -9,6 +9,6 @@
     'CLASSPATH=' 替换为 'CLASSPATH= {部署根目录}/${app}/conf'
 
 3. 编辑${TOMCAT_HOME}/conf/server.xml文件，在<Host>结点下增加：
-  	<Context path="/task-center" docBase="D:/task-center.war" debug="0" privileged="true" />
+  	<Context path="/${app}" docBase="D:/${app}.war" debug="0" privileged="true" />
 
 4. 启动tomcat.
