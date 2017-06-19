@@ -24,18 +24,32 @@
             <version>4.12</version>
         </dependency>
 
+        <!-- log -->
         <dependency>
             <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-log4j12</artifactId>
-            <version>1.7.8</version>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.7.24</version>
         </dependency>
-        <!--
         <dependency>
-            <groupId>log4j</groupId>
-            <artifactId>log4j</artifactId>
-            <version>1.2.16</version>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>1.2.2</version>
         </dependency>
-        -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>jul-to-slf4j</artifactId>
+            <version>1.7.24</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>log4j-over-slf4j</artifactId>
+            <version>1.7.24</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>jcl-over-slf4j</artifactId>
+            <version>1.7.24</version>
+        </dependency>
 
         <!-- Spring 系列-->
         <dependency>
@@ -127,12 +141,6 @@
             <artifactId>taglibs-standard-impl</artifactId>
             <version>1.2.5</version>
         </dependency>
-
-        <!--<dependency>-->
-        <!--<groupId>taglibs</groupId>-->
-        <!--<artifactId>standard</artifactId>-->
-        <!--<version>1.1.2</version>-->
-        <!--</dependency>-->
 
         <!-- mybatis 相关 -->
         <dependency>
