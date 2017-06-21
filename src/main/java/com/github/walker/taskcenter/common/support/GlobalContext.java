@@ -10,6 +10,6 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  */
 public class GlobalContext {
 
-    public static ApplicationContext context = new ClassPathXmlApplicationContext("spring.xml");
+    public static ApplicationContext context = new ClassPathXmlApplicationContext("spring-srv.xml");
 
 }

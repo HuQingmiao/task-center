@@ -15,7 +15,7 @@ import org.springframework.test.context.transaction.TransactionConfiguration;
  * @author HuQingmiao
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"classpath:spring.xml"})
+@ContextConfiguration(locations = {"classpath:spring-srv.xml"})
 @TransactionConfiguration(defaultRollback = false)
 public class TestService {
 
