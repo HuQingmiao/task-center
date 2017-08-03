@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns="http://www.springframework.org/schema/beans"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+						http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+						http://www.springframework.org/schema/context
+						http://www.springframework.org/schema/context/spring-context-3.2.xsd
+						http://www.springframework.org/schema/mvc
+						http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
+						http://www.springframework.org/schema/aop
+       					http://www.springframework.org/schema/aop/spring-aop.xsd
+                        http://www.springframework.org/schema/util
+                        http://www.springframework.org/schema/util/spring-util-3.2.xsd"
+       default-lazy-init="true">
+
+    <!--<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">-->
+    <!--<property name="locations">-->
+    <!--<list>-->
+    <!--<value>classpath:mid.properties</value>-->
+    <!--</list>-->
+    <!--</property>-->
+    <!--</bean>-->
+
+    <mvc:annotation-driven/>
+
+    <!-- 获取Spring Context用于自定义动态注册bean和获取bean -->
+    <!--<bean id="contextHolder" class="com.mucfc.ftc.ump.srv.core.common.support.ContextHolder"/>-->
+
+
+    <!-- 激活自动代理功能 -->
+    <aop:aspectj-autoproxy proxy-target-class="true"/>
+
+
+    <!-- 扫描并加载control层的类 -->
+    <!--<context:component-scan base-package="com.github.walker.taskcenter.control"/>-->
+
+    <!-- 扫描并注有@Controller的类 -->
+    <context:component-scan base-package="com.github.walker.taskcenter" use-default-filters="false">
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+    </context:component-scan>
+
+
+    <!-- 激活自动代理功能 -->
+    <!--<aop:aspectj-autoproxy proxy-target-class="true" />-->
+
+    <import resource="classpath:spring-srv.xml"/>
+
+</beans>

@@ -3,18 +3,12 @@
        xmlns="http://www.springframework.org/schema/beans"
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:mvc="http://www.springframework.org/schema/mvc"
-       xmlns:aop="http://www.springframework.org/schema/aop"
-       xmlns:util="http://www.springframework.org/schema/util"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
 						http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
 						http://www.springframework.org/schema/context
 						http://www.springframework.org/schema/context/spring-context-3.2.xsd
 						http://www.springframework.org/schema/mvc
-						http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
-						http://www.springframework.org/schema/aop
-       					http://www.springframework.org/schema/aop/spring-aop.xsd
-                        http://www.springframework.org/schema/util
-                        http://www.springframework.org/schema/util/spring-util-3.2.xsd"
+						http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd"
        default-lazy-init="true">
 
     <!-- 所有以/resources路径开头的请求都会由应用程序根目录下的/resources目录提供服务 -->
@@ -23,19 +17,8 @@
 
     <mvc:default-servlet-handler/>
 
-    <mvc:annotation-driven/>
-
-
-    <!-- 扫描并加载control层的类 -->
-    <!--<context:component-scan base-package="com.github.walker.taskcenter.control"/>-->
-
-    <!-- 扫描并注有@Controller的类 -->
-    <context:component-scan base-package="com.github.walker.taskcenter" use-default-filters="false">
-        <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
-    </context:component-scan>
-
-
-    <bean class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
+    <bean id="contentNegotiatingViewResolver"
+          class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
         <property name="order" value="1"/>
 
         <!-- 如果所有的mediaType都没匹配上，就会使用defaultContentType -->
@@ -47,7 +30,6 @@
                 <entry key="html" value="text/html"/>
             </map>
         </property>
-
 
         <property name="viewResolvers">
             <list>
@@ -71,9 +53,5 @@
             </list>
         </property>
     </bean>
-
-
-    <!-- 激活自动代理功能 -->
-    <!--<aop:aspectj-autoproxy proxy-target-class="true" />-->
 
 </beans>

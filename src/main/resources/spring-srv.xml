@@ -110,4 +110,7 @@
         <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
     </bean>
 
+
+    <import resource="classpath:quartz.xml"/>
+
 </beans>
