@@ -88,7 +88,7 @@
     </tx:advice>
 
     <aop:config>
-        <aop:pointcut id="txPointcut" expression="execution(* com.mucfc.taskcenter.service.*Service.*(..))"/>
+        <aop:pointcut id="txPointcut" expression="execution(* com.github.walker.taskcenter.service.*Service.*(..))"/>
         <aop:advisor pointcut-ref="txPointcut" advice-ref="txAdvice"/>
     </aop:config>
     -->
