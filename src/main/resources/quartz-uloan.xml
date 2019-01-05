@@ -6,7 +6,7 @@
  			      http://www.springframework.org/schema/beans/spring-beans-4.1.xsd">
 
     <bean id="dnloadJob" class="com.github.walker.uloan.job.DnloadJob"/>
-    <bean id="parseJob" class="com.github.walker.uloan.job.parseJob"/>
+    <bean id="parseJob" class="com.github.walker.uloan.job.ParseJob"/>
 
 
     <bean id="dnloadJobFactoryBean" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
