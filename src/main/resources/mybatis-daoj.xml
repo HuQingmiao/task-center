@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+    Dao层代码生成工具的用法:
+      1. 在此配置数据库连接, 表名, 输出目录;
+      2. 运行com.github.walker.taskcen.common.utils.DaoGenerator.
+      3. 将生成的文件从输出目录复制到你的工程的对应package.
+  -->
+
+<daoj>
+    <dataSource>
+        <property name="jdbcDriver" value="com.mysql.jdbc.Driver"/>
+        <property name="jdbcUrl" value="jdbc:mysql://localhost:3306/test"/>
+        <property name="username" value="dev"/>
+        <property name="password" value="123456"/>
+    </dataSource>
+
+
+    <params>
+        <!-- 指定实体类基类, 默认为 BasicVo -->
+        <property name="basicEntity" value="your.project.demo.common.BasicVo"/>
+
+        <!-- 指定DAO基类, 默认为 BasicDao -->
+        <property name="basicDao" value="your.project.demo.common.BasicDao"/>
+
+        <!-- 设定生成后的实体类所在的包 -->
+        <property name="entityPackage" value="com.github.walker.taskcen.vo"/>
+
+        <!-- 设定生成后的DAO接口所在的包 -->
+        <property name="daoPackage" value="com.github.walker.taskcen.dao"/>
+
+
+        <!-- 设定代码生成的输出目录, 支持相对路径或绝对路径 -->
+        <property name="outputDirc" value="generated-files"/>
+
+        <!-- 列出要生成的表名, 多个表可以逗号(',')分隔。 注意，数据库表必须指定了主键列。 -->
+        <property name="tables" value="app_call_log,event_control,sys_codes,schedule_control"/>
+
+    </params>
+
+</daoj>
