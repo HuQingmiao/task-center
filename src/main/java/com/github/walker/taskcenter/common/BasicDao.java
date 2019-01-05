@@ -14,30 +14,30 @@ import java.util.Map;
  */
 public interface BasicDao {
 
-    public int save(BasicVo basicVo);
+    int save(BasicVo basicVo);
 
-    public int saveBatch(List list);
-
-
-    public int update(BasicVo basicVo);
-
-    public int updateIgnoreNull(BasicVo basicVo);
-
-    public int updateBatch(List list);
+    int saveBatch(List list);
 
 
-    public int delete(BasicVo basicVo);
+    int update(BasicVo basicVo);
 
-    public int deleteBatch(List list);
+    int updateIgnoreNull(BasicVo basicVo);
 
-    public int deleteByPK(Long id);
-
-    public int deleteAll();
+    int updateBatch(List list);
 
 
-    public long count();
+    int delete(BasicVo basicVo);
 
-    public BasicVo findByPK(Long id);
+    int deleteBatch(List list);
 
-    public ArrayList find(Map<String, Object> paramMap, PageBounds pageBounds);
+    int deleteByPK(Long id);
+
+    int deleteAll();
+
+
+    long count();
+
+    BasicVo findByPK(Long id);
+
+    ArrayList find(Map<String, Object> paramMap, PageBounds pageBounds);
 }

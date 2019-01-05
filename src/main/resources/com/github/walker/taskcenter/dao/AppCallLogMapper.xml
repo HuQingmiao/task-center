@@ -4,19 +4,33 @@
 <mapper namespace="com.github.walker.taskcenter.dao.AppCallLogDao">
 
     <!-- ============================= INSERT ============================= -->
-    <insert id="save">
-        INSERT INTO app_call_log(app_id,app_code,action,time,result,exception )
-        VALUES ( #{appId},#{appCode},#{action},#{time},#{result},#{exception})
+    <insert id="save" useGeneratedKeys="true" keyProperty="id" >
+        INSERT INTO app_call_log( id,app_id,app_code,action,time,result,exception )
+        VALUES ( #{id},#{appId},#{appCode},#{action},#{time},#{result},#{exception})
     </insert>
 
+
+    <!-- batch insert for mysql -->
     <insert id="saveBatch">
-        INSERT INTO app_call_log( app_id,app_code,action,time,result,exception )
+        INSERT INTO app_call_log( id,app_id,app_code,action,time,result,exception )
         VALUES 
         <foreach collection="list" item="item" index="index" separator=",">
-            ( #{item.appId},#{item.appCode},#{item.action},#{item.time},#{item.result},#{item.exception} )
+            ( #{item.id},#{item.appId},#{item.appCode},#{item.action},#{item.time},#{item.result},#{item.exception} )
         </foreach>
     </insert>
 
+
+    <!-- batch insert for oracle -->
+    <!--
+    <insert id="saveBatch">
+        INSERT INTO app_call_log( id,app_id,app_code,action,time,result,exception )
+        <foreach collection="list" item="item" index="index" separator="UNION ALL">
+            SELECT #{item.id},#{item.appId},#{item.appCode},#{item.action},#{item.time},#{item.result},#{item.exception} 
+              FROM DUAL 
+        </foreach>
+    </insert>
+
+    -->
 
     <!-- ============================= UPDATE ============================= -->
     <update id="update">
@@ -45,19 +59,32 @@
         WHERE id=#{id} 
     </update>
 
-    <update id="updateBatch"> parameterType="java.util.List"
-        <foreach collection="list" item="item" index="index"  separator=";">
-            UPDATE app_call_log
-            <set>
-                app_id=#{item.appId},
-                app_code=#{item.appCode},
-                action=#{item.action},
-                time=#{item.time},
-                result=#{item.result},
-                exception=#{item.exception},
-            </set>
-            WHERE id=#{id} 
-        </foreach>
+    <update id="updateBatch" parameterType="java.util.List">
+        UPDATE app_call_log
+        <set>
+            <foreach collection="list" item="item" index="index" open="app_id= CASE id" close="END" separator=" " >
+                WHEN #{item.id} THEN #{item.appId}
+            </foreach>,
+            <foreach collection="list" item="item" index="index" open="app_code= CASE id" close="END" separator=" " >
+                WHEN #{item.id} THEN #{item.appCode}
+            </foreach>,
+            <foreach collection="list" item="item" index="index" open="action= CASE id" close="END" separator=" " >
+                WHEN #{item.id} THEN #{item.action}
+            </foreach>,
+            <foreach collection="list" item="item" index="index" open="time= CASE id" close="END" separator=" " >
+                WHEN #{item.id} THEN #{item.time}
+            </foreach>,
+            <foreach collection="list" item="item" index="index" open="result= CASE id" close="END" separator=" " >
+                WHEN #{item.id} THEN #{item.result}
+            </foreach>,
+            <foreach collection="list" item="item" index="index" open="exception= CASE id" close="END" separator=" " >
+                WHEN #{item.id} THEN #{item.exception}
+            </foreach>,
+        </set>
+        WHERE 
+            <foreach collection="list" separator="or" item="item" index="index">
+                id=#{item.id}
+            </foreach>
     </update>
 
 
@@ -71,7 +98,7 @@
         DELETE FROM app_call_log
         WHERE
         <foreach collection="list" item="item" index="index" open="(" separator="OR" close=")">
-            (id=#{item.id} )
+            id=#{item.id} 
         </foreach>
     </delete>
 
@@ -87,20 +114,20 @@
 
     <!-- ============================= SELECT ============================= -->
     <select id="count" resultType="java.lang.Long">
-        SELECT COUNT(1) FROM app_call_log
+        SELECT COUNT(*) FROM app_call_log
     </select>
 
-    <select id="findByPK" resultType="AppCallLog">
+    <select id="findByPK" resultType="com.github.walker.taskcenter.vo.AppCallLog">
         SELECT * FROM app_call_log
         WHERE id=#{id} 
     </select>
 
-    <select id="find" resultType="AppCallLog">
+    <select id="find" resultType="com.github.walker.taskcenter.vo.AppCallLog">
         SELECT id,app_id,app_code,action,time,result,exception
-         FROM app_call_log
+        FROM app_call_log
         <where>
             <if test="appId!= null">
-               AND app_id = #{appId}
+                AND app_id = #{appId}
             </if>
         </where>
         ORDER BY time DESC

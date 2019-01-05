@@ -4,11 +4,13 @@
 <mapper namespace="com.github.walker.taskcenter.dao.SysCodesDao">
 
     <!-- ============================= INSERT ============================= -->
-    <insert id="save">
-        INSERT INTO sys_codes(kind,kind_desc,code,code_desc,order_by )
-        VALUES ( #{kind},#{kindDesc},#{code},#{codeDesc},#{orderBy})
+    <insert id="save" useGeneratedKeys="true" keyProperty="id" >
+        INSERT INTO sys_codes( id,kind,kind_desc,code,code_desc,order_by )
+        VALUES ( #{id},#{kind},#{kindDesc},#{code},#{codeDesc},#{orderBy})
     </insert>
 
+
+    <!-- batch insert for mysql -->
     <insert id="saveBatch">
         INSERT INTO sys_codes( id,kind,kind_desc,code,code_desc,order_by )
         VALUES 
@@ -17,6 +19,18 @@
         </foreach>
     </insert>
 
+
+    <!-- batch insert for oracle -->
+    <!--
+    <insert id="saveBatch">
+        INSERT INTO sys_codes( id,kind,kind_desc,code,code_desc,order_by )
+        <foreach collection="list" item="item" index="index" separator="UNION ALL">
+            SELECT #{item.id},#{item.kind},#{item.kindDesc},#{item.code},#{item.codeDesc},#{item.orderBy} 
+              FROM DUAL 
+        </foreach>
+    </insert>
+
+    -->
 
     <!-- ============================= UPDATE ============================= -->
     <update id="update">
@@ -43,18 +57,29 @@
         WHERE id=#{id} 
     </update>
 
-    <update id="updateBatch"> parameterType="java.util.List"
-        <foreach collection="list" item="item" index="index"  separator=";">
-            UPDATE sys_codes
-            <set>
-                kind=#{item.kind},
-                kind_desc=#{item.kindDesc},
-                code=#{item.code},
-                code_desc=#{item.codeDesc},
-                order_by=#{item.orderBy},
-            </set>
-            WHERE id=#{id} 
-        </foreach>
+    <update id="updateBatch" parameterType="java.util.List">
+        UPDATE sys_codes
+        <set>
+            <foreach collection="list" item="item" index="index" open="kind= CASE id" close="END" separator=" " >
+                WHEN #{item.id} THEN #{item.kind}
+            </foreach>,
+            <foreach collection="list" item="item" index="index" open="kind_desc= CASE id" close="END" separator=" " >
+                WHEN #{item.id} THEN #{item.kindDesc}
+            </foreach>,
+            <foreach collection="list" item="item" index="index" open="code= CASE id" close="END" separator=" " >
+                WHEN #{item.id} THEN #{item.code}
+            </foreach>,
+            <foreach collection="list" item="item" index="index" open="code_desc= CASE id" close="END" separator=" " >
+                WHEN #{item.id} THEN #{item.codeDesc}
+            </foreach>,
+            <foreach collection="list" item="item" index="index" open="order_by= CASE id" close="END" separator=" " >
+                WHEN #{item.id} THEN #{item.orderBy}
+            </foreach>,
+        </set>
+        WHERE 
+            <foreach collection="list" separator="or" item="item" index="index">
+                id=#{item.id}
+            </foreach>
     </update>
 
 
@@ -68,7 +93,7 @@
         DELETE FROM sys_codes
         WHERE
         <foreach collection="list" item="item" index="index" open="(" separator="OR" close=")">
-            (id=#{item.id} )
+            id=#{item.id} 
         </foreach>
     </delete>
 
@@ -84,15 +109,15 @@
 
     <!-- ============================= SELECT ============================= -->
     <select id="count" resultType="java.lang.Long">
-        SELECT COUNT(1) FROM sys_codes
+        SELECT COUNT(*) FROM sys_codes
     </select>
 
-    <select id="findByUK" resultType="SysCodes">
+    <select id="findByPK" resultType="com.github.walker.taskcenter.vo.SysCodes">
         SELECT * FROM sys_codes
         WHERE id=#{id} 
     </select>
 
-    <select id="find" resultType="SysCodes">
+    <select id="find" resultType="com.github.walker.taskcenter.vo.SysCodes">
         SELECT id,kind,kind_desc,code,code_desc,order_by
          FROM sys_codes
         <where>

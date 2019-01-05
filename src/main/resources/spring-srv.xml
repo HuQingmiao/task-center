@@ -97,7 +97,7 @@
         <property name="dataSource" ref="dataSource"/>
 
         <!-- 为其下的包定义别名 -->
-        <property name="typeAliasesPackage" value="com.github.walker.taskcenter.vo"/>
+        <!--<property name="typeAliasesPackage" value="com.github.walker.taskcenter.vo"/>-->
 
         <!-- 载入mybatis配置 -->
         <property name="configLocation" value="classpath:mybatis.xml"/>

@@ -4,11 +4,13 @@
 <mapper namespace="com.github.walker.taskcenter.dao.ScheduleControlDao">
 
     <!-- ============================= INSERT ============================= -->
-    <insert id="save">
-        INSERT INTO schedule_control( app_id,cron_expression,next_call_time,enable )
-        VALUES ( #{appId},#{cronExpression},#{nextCallTime},#{enable})
+    <insert id="save" useGeneratedKeys="true" keyProperty="id" >
+        INSERT INTO schedule_control( id,app_id,cron_expression,next_call_time,enable )
+        VALUES ( #{id},#{appId},#{cronExpression},#{nextCallTime},#{enable})
     </insert>
 
+
+    <!-- batch insert for mysql -->
     <insert id="saveBatch">
         INSERT INTO schedule_control( id,app_id,cron_expression,next_call_time,enable )
         VALUES 
@@ -17,6 +19,18 @@
         </foreach>
     </insert>
 
+
+    <!-- batch insert for oracle -->
+    <!--
+    <insert id="saveBatch">
+        INSERT INTO schedule_control( id,app_id,cron_expression,next_call_time,enable )
+        <foreach collection="list" item="item" index="index" separator="UNION ALL">
+            SELECT #{item.id},#{item.appId},#{item.cronExpression},#{item.nextCallTime},#{item.enable} 
+              FROM DUAL 
+        </foreach>
+    </insert>
+
+    -->
 
     <!-- ============================= UPDATE ============================= -->
     <update id="update">
@@ -41,17 +55,26 @@
         WHERE id=#{id} 
     </update>
 
-    <update id="updateBatch"> parameterType="java.util.List"
-        <foreach collection="list" item="item" index="index"  separator=";">
-            UPDATE schedule_control
-            <set>
-                app_id=#{item.appId},
-                cron_expression=#{item.cronExpression},
-                next_call_time=#{item.nextCallTime},
-                enable=#{item.enable},
-            </set>
-            WHERE id=#{id} 
-        </foreach>
+    <update id="updateBatch" parameterType="java.util.List">
+        UPDATE schedule_control
+        <set>
+            <foreach collection="list" item="item" index="index" open="app_id= CASE id" close="END" separator=" " >
+                WHEN #{item.id} THEN #{item.appId}
+            </foreach>,
+            <foreach collection="list" item="item" index="index" open="cron_expression= CASE id" close="END" separator=" " >
+                WHEN #{item.id} THEN #{item.cronExpression}
+            </foreach>,
+            <foreach collection="list" item="item" index="index" open="next_call_time= CASE id" close="END" separator=" " >
+                WHEN #{item.id} THEN #{item.nextCallTime}
+            </foreach>,
+            <foreach collection="list" item="item" index="index" open="enable= CASE id" close="END" separator=" " >
+                WHEN #{item.id} THEN #{item.enable}
+            </foreach>,
+        </set>
+        WHERE 
+            <foreach collection="list" separator="or" item="item" index="index">
+                id=#{item.id}
+            </foreach>
     </update>
 
 
@@ -65,7 +88,7 @@
         DELETE FROM schedule_control
         WHERE
         <foreach collection="list" item="item" index="index" open="(" separator="OR" close=")">
-            (id=#{item.id} )
+            id=#{item.id} 
         </foreach>
     </delete>
 
@@ -81,15 +104,15 @@
 
     <!-- ============================= SELECT ============================= -->
     <select id="count" resultType="java.lang.Long">
-        SELECT COUNT(1) FROM schedule_control
+        SELECT COUNT(*) FROM schedule_control
     </select>
 
-    <select id="findByPK" resultType="ScheduleControl">
+    <select id="findByPK" resultType="com.github.walker.taskcenter.vo.ScheduleControl">
         SELECT * FROM schedule_control
         WHERE id=#{id} 
     </select>
 
-    <select id="find" resultType="ScheduleControl">
+    <select id="find" resultType="com.github.walker.taskcenter.vo.ScheduleControl">
         SELECT id,app_id,cron_expression,next_call_time,enable
          FROM schedule_control
         <where>
@@ -103,13 +126,12 @@
                AND cron_expression = #{cronExpression}
             </if>
             <if test="nextCallTime!= null">
-               AND next_callTime = #{nextCallTime}
+               AND next_call_time = #{nextCallTime}
             </if>
             <if test="enable!= null">
                AND enable = #{enable}
             </if>
         </where>
     </select>
-
 
 </mapper>

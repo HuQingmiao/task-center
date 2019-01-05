@@ -14,7 +14,7 @@ drop table if exists operate_log;
 
 drop table if exists schedule_control;
 
-drop table if exists sys_codes;
+-- drop table if exists sys_codes;
 
 /*==============================================================*/
 /* Table: app_call_log                                          */
@@ -29,7 +29,7 @@ create table app_call_log
    result               int,
    exception            varchar(80),
    primary key (id)
-);
+) ENGINE=INNODB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci COMMENT='应用调度日志表';
 
 /*==============================================================*/
 /* Table: app_reg                                               */
@@ -46,7 +46,7 @@ create table app_reg
    create_user          varchar(20),
    create_time          datetime not null,
    primary key (id)
-);
+) ENGINE=INNODB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci COMMENT='应用登记表';
 
 /*==============================================================*/
 /* Table: event_control                                         */
@@ -57,7 +57,7 @@ create table event_control
    app_id               bigint not null,
    enable               int not null,
    primary key (id)
-);
+) ENGINE=INNODB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci COMMENT='MQ调度控制表';
 
 /*==============================================================*/
 /* Table: operate_log                                           */
@@ -84,19 +84,19 @@ create table schedule_control
    next_call_time       datetime,
    enable               int not null,
    primary key (id)
-);
+) ENGINE=INNODB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci COMMENT='时间调度控制表';
 
 /*==============================================================*/
 /* Table: sys_codes                                             */
 /*==============================================================*/
-create table sys_codes
-(
-   id                   bigint not null auto_increment,
-   kind                 varchar(30) not null,
-   kind_desc            varchar(40) not null,
-   code                 varchar(30) not null,
-   code_desc            varchar(50) not null,
-   order_by             int not null,
-   primary key (id)
-);
+-- create table sys_codes
+-- (
+--    id                   bigint not null auto_increment,
+--    kind                 varchar(30) not null,
+--    kind_desc            varchar(40) not null,
+--    code                 varchar(30) not null,
+--    code_desc            varchar(50) not null,
+--    order_by             int not null,
+--    primary key (id)
+-- );
 

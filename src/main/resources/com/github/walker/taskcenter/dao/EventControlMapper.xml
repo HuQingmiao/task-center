@@ -4,11 +4,13 @@
 <mapper namespace="com.github.walker.taskcenter.dao.EventControlDao">
 
     <!-- ============================= INSERT ============================= -->
-    <insert id="save">
-        INSERT INTO event_control(app_id,enable )
-        VALUES ( #{appId},#{enable})
+    <insert id="save" useGeneratedKeys="true" keyProperty="id" >
+        INSERT INTO event_control( id,app_id,enable )
+        VALUES ( #{id},#{appId},#{enable})
     </insert>
 
+
+    <!-- batch insert for mysql -->
     <insert id="saveBatch">
         INSERT INTO event_control( id,app_id,enable )
         VALUES 
@@ -17,6 +19,18 @@
         </foreach>
     </insert>
 
+
+    <!-- batch insert for oracle -->
+    <!--
+    <insert id="saveBatch">
+        INSERT INTO event_control( id,app_id,enable )
+        <foreach collection="list" item="item" index="index" separator="UNION ALL">
+            SELECT #{item.id},#{item.appId},#{item.enable} 
+              FROM DUAL 
+        </foreach>
+    </insert>
+
+    -->
 
     <!-- ============================= UPDATE ============================= -->
     <update id="update">
@@ -37,15 +51,20 @@
         WHERE id=#{id} 
     </update>
 
-    <update id="updateBatch"> parameterType="java.util.List"
-        <foreach collection="list" item="item" index="index"  separator=";">
-            UPDATE event_control
-            <set>
-                app_id=#{item.appId},
-                enable=#{item.enable},
-            </set>
-            WHERE id=#{id} 
-        </foreach>
+    <update id="updateBatch" parameterType="java.util.List">
+        UPDATE event_control
+        <set>
+            <foreach collection="list" item="item" index="index" open="app_id= CASE id" close="END" separator=" " >
+                WHEN #{item.id} THEN #{item.appId}
+            </foreach>,
+            <foreach collection="list" item="item" index="index" open="enable= CASE id" close="END" separator=" " >
+                WHEN #{item.id} THEN #{item.enable}
+            </foreach>,
+        </set>
+        WHERE 
+            <foreach collection="list" separator="or" item="item" index="index">
+                id=#{item.id}
+            </foreach>
     </update>
 
 
@@ -59,7 +78,7 @@
         DELETE FROM event_control
         WHERE
         <foreach collection="list" item="item" index="index" open="(" separator="OR" close=")">
-            (id=#{item.id} )
+            id=#{item.id} 
         </foreach>
     </delete>
 
@@ -75,15 +94,15 @@
 
     <!-- ============================= SELECT ============================= -->
     <select id="count" resultType="java.lang.Long">
-        SELECT COUNT(1) FROM event_control
+        SELECT COUNT(*) FROM event_control
     </select>
 
-    <select id="findByPK" resultType="EventControl">
+    <select id="findByPK" resultType="com.github.walker.taskcenter.vo.EventControl">
         SELECT * FROM event_control
         WHERE id=#{id} 
     </select>
 
-    <select id="find" resultType="EventControl">
+    <select id="find" resultType="com.github.walker.taskcenter.vo.EventControl">
         SELECT id,app_id,enable
          FROM event_control
         <where>

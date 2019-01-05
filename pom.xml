@@ -195,15 +195,24 @@
             <artifactId>mybatis-spring</artifactId>
             <version>1.2.2</version>
         </dependency>
+
+
         <!-- 由于maven仓库没有这个jar包，请通过以下命令把该jar包加入本地仓库
                 mvn install:install-file  -Dfile=D:/intellj-projects/basewf/lib/mybatis-paginator-1.2.3.jar -DgroupId=com.github.walker -DartifactId=mybatis-paginator  -Dversion=1.2.3  -Dpackaging=jar
          -->
         <dependency>
             <groupId>com.github.walker</groupId>
             <artifactId>mybatis-paginator</artifactId>
-            <version>1.2.5</version>
+            <version>1.2.8</version>
             <!--<scope>system</scope>-->
-            <!--<systemPath>${basedir}/lib/mybatis-paginator-1.2.5.jar</systemPath>-->
+            <!--<systemPath>${basedir}/lib/mybatis-paginator-1.2.8.jar</systemPath>-->
+        </dependency>
+        <dependency>
+            <groupId>com.github.walker</groupId>
+            <artifactId>mybatis-daoj</artifactId>
+            <version>1.2.8</version>
+            <!--<scope>system</scope>-->
+            <!--<systemPath>${basedir}/lib/mybatis-daoj-1.2.8.jar</systemPath>-->
         </dependency>
 
 
