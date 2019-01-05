@@ -15,7 +15,7 @@
 						http://www.springframework.org/schema/aop/spring-aop.xsd">
 
 
-    <bean id="mappings" class="com.github.walker.taskcenter.common.support.PropertyHolder">
+    <bean id="mappings" class="com.github.walker.common.support.PropertyHolder">
         <property name="locations">
             <list>
                 <value>classpath:config.properties</value>
@@ -25,17 +25,17 @@
     </bean>
 
     <!-- 获取Spring Context用于自定义动态注册bean和获取bean -->
-    <bean class="com.github.walker.taskcenter.common.support.ContextHolder"/>
+    <!--<bean class="com.github.walker.taskcenmmon.support.ContextHolder"/>-->
 
     <!-- 定义在加载某个Bean前后调用的逻辑-->
     <!--<bean id="refBeanPostProcessor" class="RefBeanPostProcessor"/>-->
+
 
     <!-- 使得被加载的Bean被代理后，仍然能够通过context.getBean()获取到。 注意，必须导入cglib.jar-->
     <aop:aspectj-autoproxy proxy-target-class="true"/>
 
     <!-- 扫描并加载Service层注解了的@Service,@Component的类, 支持通配符* -->
-    <context:component-scan base-package="com.github.walker.taskcenter.service"/>
-
+    <context:component-scan base-package="com.github.walker.*.service"/>
 
     <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
         <property name="driverClassName" value="${mariaDB.jdbcDriver}"/>
@@ -88,7 +88,7 @@
     </tx:advice>
 
     <aop:config>
-        <aop:pointcut id="txPointcut" expression="execution(* com.github.walker.taskcenter.service.*Service.*(..))"/>
+        <aop:pointcut id="txPointcut" expression="execution(* com.github.walker.taskcenrvice.*Service.*(..))"/>
         <aop:advisor pointcut-ref="txPointcut" advice-ref="txAdvice"/>
     </aop:config>
     -->
@@ -96,21 +96,18 @@
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="dataSource" ref="dataSource"/>
 
-        <!-- 为其下的包定义别名 -->
-        <!--<property name="typeAliasesPackage" value="com.github.walker.taskcenter.vo"/>-->
-
         <!-- 载入mybatis配置 -->
         <property name="configLocation" value="classpath:mybatis.xml"/>
-        <property name="mapperLocations" value="classpath*:com/github/walker/taskcenter/dao/*.xml"/>
+        <property name="mapperLocations" value="classpath*:com/github/walker/*/dao/*.xml"/>
     </bean>
 
     <!-- 扫描并加载 basePackage下的DAO/Mapper接口 -->
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        <property name="basePackage" value="com.github.walker.taskcenter.dao"/>
+        <property name="basePackage" value="com.github.walker.*.dao"/>
         <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
     </bean>
 
 
-    <import resource="classpath:quartz.xml"/>
+    <!--<import resource="classpath:quartz-uloan.xml"/>-->
 
 </beans>

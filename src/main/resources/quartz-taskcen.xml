@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation=
+               "http://www.springframework.org/schema/beans
+ 			      http://www.springframework.org/schema/beans/spring-beans-4.1.xsd">
+
+
+    <bean id="eventCaller" class="com.github.walker.taskcen.caller.EventCaller"/>
+
+    <bean id="scheduleCaller" class="com.github.walker.taskcen.caller.ScheduleCaller"/>
+
+    <bean id="scheduleCallJob" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject" ref="scheduleCaller"/>
+        <property name="targetMethod" value="doJob"/>
+        <property name="concurrent" value="false"/>
+    </bean>
+
+    <bean id="scheduleCallTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail" ref="scheduleCallJob"/>
+
+        <!--秒 分 时 日 月 星期 年 -->
+        <property name="cronExpression" value="5/10 * * * * ?"/>
+    </bean>
+
+
+    <!-- 配置调度线程池
+    <bean id="executor" class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
+        <property name="corePoolSize" value="5"/>
+        <property name="maxPoolSize" value="10"/>
+        <property name="queueCapacity" value="30"/>
+    </bean>
+    -->
+
+
+    <bean id="startScheduler" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+        <property name="triggers">
+            <list>
+                <ref bean="scheduleCallTrigger"/>
+            </list>
+        </property>
+
+        <!--<property name="taskExecutor" ref="executor"/>-->
+    </bean>
+
+</beans>

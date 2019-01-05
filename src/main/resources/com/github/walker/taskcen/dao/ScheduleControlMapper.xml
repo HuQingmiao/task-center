@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC  "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.github.walker.taskcen.dao.ScheduleControlDao">
+
+    <!-- ============================= INSERT ============================= -->
+    <insert id="save" useGeneratedKeys="true" keyProperty="id" >
+        INSERT INTO schedule_control( id,app_id,cron_expression,next_call_time,enable )
+        VALUES ( #{id},#{appId},#{cronExpression},#{nextCallTime},#{enable})
+    </insert>
+
+
+    <!-- batch insert for mysql -->
+    <insert id="saveBatch">
+        INSERT INTO schedule_control( id,app_id,cron_expression,next_call_time,enable )
+        VALUES 
+        <foreach collection="list" item="item" index="index" separator=",">
+            ( #{item.id},#{item.appId},#{item.cronExpression},#{item.nextCallTime},#{item.enable} )
+        </foreach>
+    </insert>
+
+
+    <!-- batch insert for oracle -->
+    <!--
+    <insert id="saveBatch">
+        INSERT INTO schedule_control( id,app_id,cron_expression,next_call_time,enable )
+        <foreach collection="list" item="item" index="index" separator="UNION ALL">
+            SELECT #{item.id},#{item.appId},#{item.cronExpression},#{item.nextCallTime},#{item.enable} 
+              FROM DUAL 
+        </foreach>
+    </insert>
+
+    -->
+
+    <!-- ============================= UPDATE ============================= -->
+    <update id="update">
+        UPDATE schedule_control
+        <set>
+            app_id=#{appId},
+            cron_expression=#{cronExpression},
+            next_call_time=#{nextCallTime},
+            enable=#{enable},
+        </set>
+        WHERE id=#{id} 
+    </update>
+
+    <update id="updateIgnoreNull">
+        UPDATE schedule_control
+        <set>
+            <if test="appId!= null">app_id=#{appId},</if>
+            <if test="cronExpression!= null">cron_expression=#{cronExpression},</if>
+            <if test="nextCallTime!= null">next_call_time=#{nextCallTime},</if>
+            <if test="enable!= null">enable=#{enable},</if>
+        </set>
+        WHERE id=#{id} 
+    </update>
+
+    <update id="updateBatch" parameterType="java.util.List">
+        UPDATE schedule_control
+        <set>
+            <foreach collection="list" item="item" index="index" open="app_id= CASE id" close="END" separator=" " >
+                WHEN #{item.id} THEN #{item.appId}
+            </foreach>,
+            <foreach collection="list" item="item" index="index" open="cron_expression= CASE id" close="END" separator=" " >
+                WHEN #{item.id} THEN #{item.cronExpression}
+            </foreach>,
+            <foreach collection="list" item="item" index="index" open="next_call_time= CASE id" close="END" separator=" " >
+                WHEN #{item.id} THEN #{item.nextCallTime}
+            </foreach>,
+            <foreach collection="list" item="item" index="index" open="enable= CASE id" close="END" separator=" " >
+                WHEN #{item.id} THEN #{item.enable}
+            </foreach>,
+        </set>
+        WHERE 
+            <foreach collection="list" separator="or" item="item" index="index">
+                id=#{item.id}
+            </foreach>
+    </update>
+
+
+    <!-- ============================= DELETE ============================= -->
+    <delete id="delete">
+        DELETE FROM schedule_control
+        WHERE id=#{id} 
+    </delete>
+
+    <delete id="deleteBatch">
+        DELETE FROM schedule_control
+        WHERE
+        <foreach collection="list" item="item" index="index" open="(" separator="OR" close=")">
+            id=#{item.id} 
+        </foreach>
+    </delete>
+
+    <delete id="deleteByPK">
+        DELETE FROM schedule_control
+        WHERE id=#{id} 
+    </delete>
+
+    <delete id="deleteAll">
+        DELETE FROM schedule_control
+    </delete>
+
+
+    <!-- ============================= SELECT ============================= -->
+    <select id="count" resultType="java.lang.Long">
+        SELECT COUNT(*) FROM schedule_control
+    </select>
+
+    <select id="findByPK" resultType="com.github.walker.taskcen.vo.ScheduleControl">
+        SELECT * FROM schedule_control
+        WHERE id=#{id} 
+    </select>
+
+    <select id="find" resultType="com.github.walker.taskcen.vo.ScheduleControl">
+        SELECT id,app_id,cron_expression,next_call_time,enable
+         FROM schedule_control
+        <where>
+            <if test="id!= null">
+               AND id = #{id}
+            </if>
+            <if test="appId!= null">
+               AND app_id = #{appId}
+            </if>
+            <if test="cronExpression!= null">
+               AND cron_expression = #{cronExpression}
+            </if>
+            <if test="nextCallTime!= null">
+               AND next_call_time = #{nextCallTime}
+            </if>
+            <if test="enable!= null">
+               AND enable = #{enable}
+            </if>
+        </where>
+    </select>
+
+</mapper>

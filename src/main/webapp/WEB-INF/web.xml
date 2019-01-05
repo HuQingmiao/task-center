@@ -15,6 +15,7 @@
         </param-value>
     </context-param>
 
+
     <listener>
         <description>用于加载以上contextConfigLocation指定的配置文件</description>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
@@ -32,8 +33,8 @@
         <servlet-name>springmvc</servlet-name>
         <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
         <!--<init-param>-->
-        <!--<param-name>contextConfigLocation</param-name>-->
-        <!--<param-value>classpath:spring-mid.xml</param-value>-->
+            <!--<param-name>contextConfigLocation</param-name>-->
+            <!--<param-value>classpath:spring-mvc.xml</param-value>-->
         <!--</init-param>-->
         <init-param>
             <param-name>readonly</param-name>
@@ -67,7 +68,7 @@
 
     <filter>
         <filter-name>sessionFilter</filter-name>
-        <filter-class>com.github.walker.taskcenter.common.support.SessionFilter</filter-class>
+        <filter-class>com.github.walker.common.support.SessionFilter</filter-class>
     </filter>
 
 
@@ -82,14 +83,14 @@
     </filter-mapping>
 
     <!--<security-constraint>-->
-        <!--<web-resource-collection>-->
-            <!--<web-resource-name>http method forbidden</web-resource-name>-->
-            <!--<description>禁止以下http方法的请求</description>-->
-            <!--<url-pattern>/*</url-pattern>-->
-            <!--<http-method>HEAD</http-method>-->
-            <!--<http-method>TRACE</http-method>-->
-        <!--</web-resource-collection>-->
-        <!--<auth-constraint/>-->
+    <!--<web-resource-collection>-->
+    <!--<web-resource-name>http method forbidden</web-resource-name>-->
+    <!--<description>禁止以下http方法的请求</description>-->
+    <!--<url-pattern>/*</url-pattern>-->
+    <!--<http-method>HEAD</http-method>-->
+    <!--<http-method>TRACE</http-method>-->
+    <!--</web-resource-collection>-->
+    <!--<auth-constraint/>-->
     <!--</security-constraint>-->
 
 
@@ -98,8 +99,8 @@
     </welcome-file-list>
 
     <!--<error-page>-->
-        <!--<error-code>404</error-code>-->
-        <!--<location>/404.html</location>-->
+    <!--<error-code>404</error-code>-->
+    <!--<location>/404.html</location>-->
     <!--</error-page>-->
 
 </web-app>

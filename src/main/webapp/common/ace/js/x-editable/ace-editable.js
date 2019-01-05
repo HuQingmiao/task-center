@@ -65,7 +65,7 @@ Image editable input.
 			.on('file.error.ace', function(e, info) {
 				if( !self.on_error ) return;
 				if( info.error_count['ext'] > 0 || info.error_count['mime'] > 0 ) {
-					//wrong ext or mime?
+					//wrong uloan or mime?
 					self.on_error(1);
 				}
 				else if( info.error_count['size'] > 0 ) {

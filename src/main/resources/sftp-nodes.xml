@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<nodes>
+
+    <node id="1" desc="">
+        <property name="host" value="132.224.18.80" comment="FTP服务器的IP或主机名"/>
+        <property name="port" value="22" comment="FTP服务器的端口"/>
+        <property name="username" value="root" comment="登录FTP的用户名"/>
+        <property name="password" value="Redis098!" comment="登录FTP的密码"/>
+
+        <property name="connMode" value="passive"
+                  comment="主动模式:active, 被动模式:passive; 默认为被动模式"/>
+
+        <property name="fileType" value="bin"
+                  comment="二进制文件:bin, 文本方式:asc; 默认为二进制文件"/>
+
+        <property name="serverUploadDirc" value="/app/testftp"
+                  comment="FTP服务器的上传文件存放目录,相对路径; 如果设为空串, 则表示不作上传处理"/>
+
+        <property name="localUploadDirc" value="d:/jiangsu-ftp"
+                  comment="待上传文件目录, 如果设为空串, 则表示不作上传处理"/>
+
+
+        <property name="serverDnloadDirc" value=""
+                  comment="FTP服务器的待下载文件存放目录,相对路径; 如果设为空串, 则表示不作下载处理"/>
+
+        <property name="localDnloadDirc" value=""
+                  comment="下载文件存放目录, 如果设为空串, 则表示不作下载处理"/>
+    </node>
+
+    <!--<node id="2" desc="">-->
+        <!--<property name="host" value="132.224.128.108" comment="FTP服务器的IP或主机名"/>-->
+        <!--<property name="port" value="22" comment="FTP服务器的端口"/>-->
+        <!--<property name="username" value="root" comment="登录FTP的用户名"/>-->
+        <!--<property name="password" value="Redis098!" comment="登录FTP的密码"/>-->
+
+        <!--<property name="connMode" value="passive"-->
+                  <!--comment="主动模式:active, 被动模式:passive; 默认为被动模式"/>-->
+
+        <!--<property name="fileType" value="bin"-->
+                  <!--comment="二进制文件:bin, 文本方式:asc; 默认为二进制文件"/>-->
+
+        <!--<property name="serverUploadDirc" value="/app/testftp"-->
+                  <!--comment="FTP服务器的上传文件存放目录,相对路径; 如果设为空串, 则表示不作上传处理"/>-->
+
+        <!--<property name="localUploadDirc" value="d:/jiangsu-ftp"-->
+                  <!--comment="待上传文件目录, 如果设为空串, 则表示不作上传处理"/>-->
+
+
+        <!--<property name="serverDnloadDirc" value=""-->
+                  <!--comment="FTP服务器的待下载文件存放目录,相对路径; 如果设为空串, 则表示不作下载处理"/>-->
+
+        <!--<property name="localDnloadDirc" value=""-->
+                  <!--comment="下载文件存放目录, 如果设为空串, 则表示不作下载处理"/>-->
+
+    <!--</node>-->
+
+</nodes>

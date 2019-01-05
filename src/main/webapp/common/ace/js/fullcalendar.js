@@ -3137,7 +3137,7 @@ setLocalValues = allowValueOptimization ? function(mom, a) {
 
 // call this if you want Moment's original format method to be used
 function oldMomentFormat(mom, formatStr) {
-	return oldMomentProto.format.call(mom, formatStr); // oldMomentProto defined in moment-ext.js
+	return oldMomentProto.format.call(mom, formatStr); // oldMomentProto defined in moment-uloan.js
 }
 
 

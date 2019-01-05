@@ -87,7 +87,7 @@
                                     <!-- 如果没有这行代码，modelAttribute="form"将无法识别；但如果在进入本页面前，在controller中
                                          设置modelAttribute，那也可不会造成识别问题-->
                                     <!--
-                                    <jsp:useBean id="form" class="com.github.walker.taskcenter.control.LoginForm" scope="request">
+                                    <jsp:useBean id="form" class="com.github.walker.taskcen.control.LoginForm" scope="request">
                                     </jsp:useBean>
                                     -->
 

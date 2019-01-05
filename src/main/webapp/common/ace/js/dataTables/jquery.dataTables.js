@@ -97,7 +97,7 @@
 	//  _selector_first
 	//  _selector_row_indexes
 	
-	var _ext; // DataTable.ext
+	var _ext; // DataTable.uloan
 	var _Api; // DataTable.Api
 	var _api_register; // DataTable.Api.register
 	var _api_registerPlural; // DataTable.Api.registerPlural
@@ -3398,7 +3398,7 @@
 	
 	/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	 * Note that most of the paging logic is done in
-	 * DataTable.ext.pager
+	 * DataTable.uloan.pager
 	 */
 	
 	/**
@@ -5365,7 +5365,7 @@
 		 * Create a DataTables Api instance, with the currently selected tables for
 		 * the Api's context.
 		 * @param {boolean} [traditional=false] Set the API instance's context to be
-		 *   only the table referred to by the `DataTable.ext.iApiIndex` option, as was
+		 *   only the table referred to by the `DataTable.uloan.iApiIndex` option, as was
 		 *   used in the API presented by DataTables 1.9- (i.e. the traditional mode),
 		 *   or if all tables captured in the jQuery object should be used.
 		 * @return {DataTables.Api}
@@ -11658,7 +11658,7 @@
 		 * display pagination buttons in the mark-up required by Bootstrap.
 		 *
 		 * For further information about the renderers available see
-		 * DataTable.ext.renderer
+		 * DataTable.uloan.renderer
 		 *  @type string|object
 		 *  @default null
 		 *
@@ -13424,8 +13424,8 @@
 	 * Extension object for DataTables that is used to provide all extension
 	 * options.
 	 *
-	 * Note that the `DataTable.ext` object is available through
-	 * `jQuery.fn.dataTable.ext` where it may be accessed and manipulated. It is
+	 * Note that the `DataTable.uloan` object is available through
+	 * `jQuery.fn.dataTable.uloan` where it may be accessed and manipulated. It is
 	 * also aliased to `jQuery.fn.dataTableExt` for historic reasons.
 	 *  @namespace
 	 *  @extends DataTable.models.ext
@@ -13497,7 +13497,7 @@
 		 *  @type array
 		 *
 		 *  @example
-		 *    $.fn.dataTable.ext.features.push( {
+		 *    $.fn.dataTable.uloan.features.push( {
 		 *      "fnInit": function( oSettings ) {
 		 *        return new TableTools( { "oDTSettings": oSettings } );
 		 *      },
@@ -13543,7 +13543,7 @@
 		 *    // The following example shows custom search being applied to the
 		 *    // fourth column (i.e. the data[3] index) based on two input values
 		 *    // from the end-user, matching the data in a certain range.
-		 *    $.fn.dataTable.ext.search.push(
+		 *    $.fn.dataTable.uloan.search.push(
 		 *      function( settings, data, dataIndex ) {
 		 *        var min = document.getElementById('min').value * 1;
 		 *        var max = document.getElementById('max').value * 1;
@@ -13686,7 +13686,7 @@
 		 *
 		 *  @example
 		 *    // Ordering using `input` node values
-		 *    $.fn.dataTable.ext.order['dom-text'] = function  ( settings, col )
+		 *    $.fn.dataTable.uloan.order['dom-text'] = function  ( settings, col )
 		 *    {
 		 *      return this.api().column( col, {order:'index'} ).nodes().map( function ( td, i ) {
 		 *        return $('input', td).val();
@@ -13732,7 +13732,7 @@
 			 *
 			 *  @example
 			 *    // Currency type detection plug-in:
-			 *    $.fn.dataTable.ext.type.detect.push(
+			 *    $.fn.dataTable.uloan.type.detect.push(
 			 *      function ( data, settings ) {
 			 *        // Check the numeric part
 			 *        if ( ! $.isNumeric( data.substring(1) ) ) {
@@ -13782,7 +13782,7 @@
 			 *  @default {}
 			 *
 			 *  @example
-			 *    $.fn.dataTable.ext.type.search['title-numeric'] = function ( d ) {
+			 *    $.fn.dataTable.uloan.type.search['title-numeric'] = function ( d ) {
 			 *      return d.replace(/\n/g," ").replace( /<.*?>/g, "" );
 			 *    }
 			 */
@@ -13835,7 +13835,7 @@
 			 *
 			 *  @example
 			 *    // Numeric ordering of formatted numbers with a pre-formatter
-			 *    $.extend( $.fn.dataTable.ext.type.order, {
+			 *    $.extend( $.fn.dataTable.uloan.type.order, {
 			 *      "string-pre": function(x) {
 			 *        a = (a === "-" || a === "") ? 0 : a.replace( /[^\d\-\.]/g, "" );
 			 *        return parseFloat( a );
@@ -13844,7 +13844,7 @@
 			 *
 			 *  @example
 			 *    // Case-sensitive string ordering, with no pre-formatting method
-			 *    $.extend( $.fn.dataTable.ext.order, {
+			 *    $.extend( $.fn.dataTable.uloan.order, {
 			 *      "string-case-asc": function(x,y) {
 			 *        return ((x < y) ? -1 : ((x > y) ? 1 : 0));
 			 *      },
@@ -14203,7 +14203,7 @@
 	
 	
 	
-	// Built in type detection. See model.ext.aTypes for information about
+	// Built in type detection. See model.uloan.aTypes for information about
 	// what is required from this methods.
 	$.extend( DataTable.ext.type.detect, [
 		// Plain numbers - first since V8 detects some plain numbers as dates
@@ -14258,7 +14258,7 @@
 	
 	
 	
-	// Filter formatting functions. See model.ext.ofnSearch for information about
+	// Filter formatting functions. See model.uloan.ofnSearch for information about
 	// what is required from these methods.
 	// 
 	// Note that additional search methods are added for the html numbers and

@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC  "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.github.walker.taskcen.dao.AppRegDao">
+
+    <!-- ============================= INSERT ============================= -->
+    <insert id="save" useGeneratedKeys="true" keyProperty="id" >
+        INSERT INTO app_reg( id,app_name,app_code,host_name,type,command,state,
+        create_user,create_time )
+        VALUES ( #{id},#{appName},#{appCode},#{hostName},#{type},#{command},#{state},
+        #{createUser},#{createTime})
+    </insert>
+
+
+    <!-- batch insert for mysql -->
+    <insert id="saveBatch">
+        INSERT INTO app_reg( id,app_name,app_code,host_name,type,command,state,
+        create_user,create_time )
+        VALUES
+        <foreach collection="list" item="item" index="index" separator=",">
+            ( #{item.id},#{item.appName},#{item.appCode},#{item.hostName},#{item.type},#{item.command},#{item.state},
+            #{item.createUser},#{item.createTime} )
+        </foreach>
+    </insert>
+
+
+    <!-- batch insert for oracle -->
+    <!--
+    <insert id="saveBatch">
+        INSERT INTO app_reg( id,app_name,app_code,host_name,type,command,state,
+                          create_user,create_time )
+        <foreach collection="list" item="item" index="index" separator="UNION ALL">
+            SELECT #{item.id},#{item.appName},#{item.appCode},#{item.hostName},#{item.type},#{item.command},#{item.state},
+              #{item.createUser},#{item.createTime}
+              FROM DUAL
+        </foreach>
+    </insert>
+
+    -->
+
+    <!-- ============================= UPDATE ============================= -->
+    <update id="update">
+        UPDATE app_reg
+        <set>
+            app_name=#{appName},
+            app_code=#{appCode},
+            host_name=#{hostName},
+            type=#{type},
+            command=#{command},
+            state=#{state},
+            create_user=#{createUser},
+            create_time=#{createTime},
+        </set>
+        WHERE id=#{id}
+    </update>
+
+    <update id="updateIgnoreNull">
+        UPDATE app_reg
+        <set>
+            <if test="appName!= null">app_name=#{appName},</if>
+            <if test="appCode!= null">app_code=#{appCode},</if>
+            <if test="hostName!= null">host_name=#{hostName},</if>
+            <if test="type!= null">type=#{type},</if>
+            <if test="command!= null">command=#{command},</if>
+            <if test="state!= null">state=#{state},</if>
+            <if test="createUser!= null">create_user=#{createUser},</if>
+            <if test="createTime!= null">create_time=#{createTime},</if>
+        </set>
+        WHERE id=#{id}
+    </update>
+
+    <update id="updateBatch" parameterType="java.util.List">
+        UPDATE app_reg
+        <set>
+            <foreach collection="list" item="item" index="index" open="app_name= CASE id" close="END" separator=" " >
+                WHEN #{item.id} THEN #{item.appName}
+            </foreach>,
+            <foreach collection="list" item="item" index="index" open="app_code= CASE id" close="END" separator=" " >
+                WHEN #{item.id} THEN #{item.appCode}
+            </foreach>,
+            <foreach collection="list" item="item" index="index" open="host_name= CASE id" close="END" separator=" " >
+                WHEN #{item.id} THEN #{item.hostName}
+            </foreach>,
+            <foreach collection="list" item="item" index="index" open="type= CASE id" close="END" separator=" " >
+                WHEN #{item.id} THEN #{item.type}
+            </foreach>,
+            <foreach collection="list" item="item" index="index" open="command= CASE id" close="END" separator=" " >
+                WHEN #{item.id} THEN #{item.command}
+            </foreach>,
+            <foreach collection="list" item="item" index="index" open="state= CASE id" close="END" separator=" " >
+                WHEN #{item.id} THEN #{item.state}
+            </foreach>,
+            <foreach collection="list" item="item" index="index" open="create_user= CASE id" close="END" separator=" " >
+                WHEN #{item.id} THEN #{item.createUser}
+            </foreach>,
+            <foreach collection="list" item="item" index="index" open="create_time= CASE id" close="END" separator=" " >
+                WHEN #{item.id} THEN #{item.createTime}
+            </foreach>,
+        </set>
+        WHERE
+        <foreach collection="list" separator="or" item="item" index="index">
+            id=#{item.id}
+        </foreach>
+    </update>
+
+
+    <!-- ============================= DELETE ============================= -->
+    <delete id="delete">
+        DELETE FROM app_reg
+        WHERE id=#{id}
+    </delete>
+
+    <delete id="deleteBatch">
+        DELETE FROM app_reg
+        WHERE
+        <foreach collection="list" item="item" index="index" open="(" separator="OR" close=")">
+            id=#{item.id}
+        </foreach>
+    </delete>
+
+    <delete id="deleteByPK">
+        DELETE FROM app_reg
+        WHERE id=#{id}
+    </delete>
+
+    <delete id="deleteAll">
+        DELETE FROM app_reg
+    </delete>
+
+
+    <!-- ============================= SELECT ============================= -->
+    <select id="count" resultType="java.lang.Long">
+        SELECT COUNT(*) FROM app_reg
+    </select>
+
+    <select id="findByPK" resultType="com.github.walker.taskcen.vo.AppReg">
+        SELECT * FROM app_reg
+        WHERE id=#{id}
+    </select>
+
+    <select id="find" resultType="com.github.walker.taskcen.vo.AppReg">
+        SELECT a.id,a.app_code,a.app_name,a.host_name,a.type,a.command,a.state
+        ,s.enable schedule_enable, s.cron_expression
+        ,e.enable event_enable
+        FROM app_reg a LEFT JOIN schedule_control s ON a.id=s.app_id
+        LEFT JOIN event_control e ON a.id=e.app_id
+        <where>
+            <if test="appName != null and appName!=''">
+                (app_code LIKE #{appName} OR app_name LIKE #{appName})
+            </if>
+            <if test="hostName != null and hostName!=''">
+                AND host_name LIKE #{hostName}
+            </if>
+        </where>
+    </select>
+
+    <select id="findByCodeOrByName" resultType="com.github.walker.taskcen.vo.AppReg">
+        SELECT *
+        FROM app_reg
+        WHERE app_code=#{appCode} or app_name=#{appName}
+    </select>
+
+    <select id="findScheduleApps" resultType="com.github.walker.taskcen.vo.AppReg">
+        SELECT  a.id, a.app_code, a.app_name,a.host_name,a.type,a.command,a.state
+        ,s.id schedule_id, s.enable schedule_enable, s.cron_expression, s.next_call_time
+        FROM app_reg a, schedule_control s
+        WHERE a.id = s.app_id
+    </select>
+
+    <select id="findEventApp" resultType="com.github.walker.taskcen.vo.AppReg">
+        SELECT a.id, a.app_code, a.app_name, a.host_name,a.type, a.command,a.state
+        ,e.enable event_enable
+        FROM app_reg a,event_control e
+        WHERE a.id = e.app_id
+        AND a.app_code=#{appCode}
+    </select>
+</mapper>
