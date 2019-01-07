@@ -29,6 +29,7 @@ public class CreditApplyCtlTest {
             CreditApplyReq reqDto = new CreditApplyReq();
             reqDto.setApplyNo("asdfasfa");
             reqDto.setCustName("Laoli");
+
             StringEntity entity = new StringEntity(JSONObject.toJSONString(reqDto));
             entity.setContentEncoding("UTF-8");
             entity.setContentType("application/json");
