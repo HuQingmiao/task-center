@@ -6,6 +6,7 @@ import com.github.walker.common.utils.DateTimeUtil;
 import com.github.walker.taskcen.dao.AppRegDao;
 
 import com.github.walker.taskcen.vo.AppReg;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -62,13 +63,13 @@ public class AppRegService extends BasicService {
 
     public List<AppReg> findAppConfigs(String appCode, String appName, String hostName, int offset, int rowCnt)  {
         HashMap<String, Object> paramMap = new HashMap<String, Object>();
-        if (appCode != null) {
-            paramMap.put("appCode", "%" + appCode + "%");
+        if (StringUtils.isNotEmpty(appCode)) {
+            paramMap.put("appCode", appCode + "%");
         }
-        if (appName != null) {
+        if (StringUtils.isNotEmpty(appName)) {
             paramMap.put("appName", "%" + appName + "%");
         }
-        if (hostName != null) {
+        if (StringUtils.isNotEmpty(hostName)) {
             paramMap.put("hostName", "%" + hostName + "%");
         }
 

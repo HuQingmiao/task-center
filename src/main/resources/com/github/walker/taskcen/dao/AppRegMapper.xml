@@ -145,10 +145,10 @@
         FROM app_reg a LEFT JOIN schedule_control s ON a.id=s.app_id
         LEFT JOIN event_control e ON a.id=e.app_id
         <where>
-            <if test="appName != null and appName!=''">
+            <if test="appName != null">
                 (app_code LIKE #{appName} OR app_name LIKE #{appName})
             </if>
-            <if test="hostName != null and hostName!=''">
+            <if test="hostName != null">
                 AND host_name LIKE #{hostName}
             </if>
         </where>
